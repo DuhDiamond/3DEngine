@@ -16,3 +16,5 @@ This project is my attempt at building a (basic) 3D engine from scratch, combini
 I aim to try and work on this at least a few hours each week when i'm free, starting from completing what is covered on LearnOpenGL, as I plan to focus primarily at the moment on just getting hands-on experience with OpenGL and graphics programming fundamentals.
 
 In the long-term (Depending on how this goes; this is already very ambitious in scale) perhaps trying to tackle topics such as physically-based rendering would be interesting.
+
+I'm also planning to update a log (to be decided where) to track what i'm learning, the progress i'm making, and to ensure I stay on track to these goals.
