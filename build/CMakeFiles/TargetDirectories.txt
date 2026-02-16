@@ -1,0 +1,4 @@
+/mnt/c/Users/duhdi/Documents/3DEngine/build/CMakeFiles/glad.dir
+/mnt/c/Users/duhdi/Documents/3DEngine/build/CMakeFiles/3DEngine.dir
+/mnt/c/Users/duhdi/Documents/3DEngine/build/CMakeFiles/edit_cache.dir
+/mnt/c/Users/duhdi/Documents/3DEngine/build/CMakeFiles/rebuild_cache.dir
