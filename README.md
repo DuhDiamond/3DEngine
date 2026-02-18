@@ -11,7 +11,7 @@ This project is my attempt at building a (basic) 3D engine from scratch, combini
 - Implementing ideas from what i've learnt from [*Ray Tracing in One Weekend*](https://raytracing.github.io/books/RayTracingInOneWeekend.html)
 - Potentially (In the long-term) work towards implementing concepts from [*Physically Based Rendering: From Theory to Implementation*](https://pbr-book.org/)
 
-You can follow along with my progress from logs i'm writing in the [CommitLogs](https://github.com/DuhDiamond/3DEngine/tree/main/CommitLogs) folder
+You can follow along with my progress from logs i'm writing in the [CommitLogs](https://github.com/DuhDiamond/3DEngine/tree/main/CommitLogs) folder.
 
 # Goals
 
