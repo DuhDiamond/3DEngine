@@ -1,0 +1,14 @@
+[
+{
+  "directory": "/mnt/c/Users/duhdi/Documents/3DEngine/build",
+  "command": "/usr/bin/gcc  -I/mnt/c/Users/duhdi/Documents/3DEngine/external/glad/include -g -o CMakeFiles/glad.dir/external/glad/src/glad.c.o -c /mnt/c/Users/duhdi/Documents/3DEngine/external/glad/src/glad.c",
+  "file": "/mnt/c/Users/duhdi/Documents/3DEngine/external/glad/src/glad.c",
+  "output": "CMakeFiles/glad.dir/external/glad/src/glad.c.o"
+},
+{
+  "directory": "/mnt/c/Users/duhdi/Documents/3DEngine/build",
+  "command": "/usr/bin/g++  -I/mnt/c/Users/duhdi/Documents/3DEngine/dependencies -I/mnt/c/Users/duhdi/Documents/3DEngine/external/glad/include -g -o CMakeFiles/3DEngine.dir/src/main.cpp.o -c /mnt/c/Users/duhdi/Documents/3DEngine/src/main.cpp",
+  "file": "/mnt/c/Users/duhdi/Documents/3DEngine/src/main.cpp",
+  "output": "CMakeFiles/3DEngine.dir/src/main.cpp.o"
+}
+]

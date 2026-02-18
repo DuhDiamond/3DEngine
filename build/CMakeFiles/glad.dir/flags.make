@@ -6,5 +6,5 @@ C_DEFINES =
 
 C_INCLUDES = -I/mnt/c/Users/duhdi/Documents/3DEngine/external/glad/include
 
-C_FLAGS = 
+C_FLAGS = -g
 

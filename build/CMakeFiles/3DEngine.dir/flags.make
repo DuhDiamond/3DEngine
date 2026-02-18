@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/mnt/c/Users/duhdi/Documents/3DEngine/dependencies -I/mnt/c/Users/duhdi/Documents/3DEngine/external/glad/include
 
-CXX_FLAGS = 
+CXX_FLAGS = -g
 
