@@ -3,6 +3,8 @@ file(REMOVE_RECURSE
   "3DEngine.pdb"
   "CMakeFiles/3DEngine.dir/src/main.cpp.o"
   "CMakeFiles/3DEngine.dir/src/main.cpp.o.d"
+  "CMakeFiles/3DEngine.dir/src/shader.cpp.o"
+  "CMakeFiles/3DEngine.dir/src/shader.cpp.o.d"
 )
 
 # Per-language clean rules from dependency scanning.

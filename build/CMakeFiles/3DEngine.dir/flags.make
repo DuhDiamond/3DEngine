@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/g++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/mnt/c/Users/duhdi/Documents/3DEngine/dependencies -I/mnt/c/Users/duhdi/Documents/3DEngine/external/glad/include
+CXX_INCLUDES = -I/mnt/c/Users/duhdi/Documents/3DEngine/include -I/mnt/c/Users/duhdi/Documents/3DEngine/external/glad/include
 
 CXX_FLAGS = -g
 

@@ -7,8 +7,14 @@
 },
 {
   "directory": "/mnt/c/Users/duhdi/Documents/3DEngine/build",
-  "command": "/usr/bin/g++  -I/mnt/c/Users/duhdi/Documents/3DEngine/dependencies -I/mnt/c/Users/duhdi/Documents/3DEngine/external/glad/include -g -o CMakeFiles/3DEngine.dir/src/main.cpp.o -c /mnt/c/Users/duhdi/Documents/3DEngine/src/main.cpp",
+  "command": "/usr/bin/g++  -I/mnt/c/Users/duhdi/Documents/3DEngine/include -I/mnt/c/Users/duhdi/Documents/3DEngine/external/glad/include -g -o CMakeFiles/3DEngine.dir/src/main.cpp.o -c /mnt/c/Users/duhdi/Documents/3DEngine/src/main.cpp",
   "file": "/mnt/c/Users/duhdi/Documents/3DEngine/src/main.cpp",
   "output": "CMakeFiles/3DEngine.dir/src/main.cpp.o"
+},
+{
+  "directory": "/mnt/c/Users/duhdi/Documents/3DEngine/build",
+  "command": "/usr/bin/g++  -I/mnt/c/Users/duhdi/Documents/3DEngine/include -I/mnt/c/Users/duhdi/Documents/3DEngine/external/glad/include -g -o CMakeFiles/3DEngine.dir/src/shader.cpp.o -c /mnt/c/Users/duhdi/Documents/3DEngine/src/shader.cpp",
+  "file": "/mnt/c/Users/duhdi/Documents/3DEngine/src/shader.cpp",
+  "output": "CMakeFiles/3DEngine.dir/src/shader.cpp.o"
 }
 ]

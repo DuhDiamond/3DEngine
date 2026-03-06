@@ -1,19 +1,23 @@
-float vertices[] = {
-    -0.5f, -0.5f, 0.0f,
-    0.5f, -0.5f, 0.0f,
-    0.0f, 0.5f, 0.0f
+float vertices1[] = {
+    0.5f, 0.5f, 0.0f,   0.5f, 0.6f, 0.9f,
+    0.5f, -0.5f, 0.0f,  0.1f, 0.3f, 0.4f,
+    -0.5f, -0.5f, 0.0f, 0.5f, 0.1f, 0.2f,
+    -0.5f, 0.5f, 0.0f,  0.2f, 0.3f, 0.4f
+
+};
+unsigned int indices1[] = {
+    0, 1, 3,
+    1, 2, 3
 };
 
-const char *vertexShaderSource =
-"#version 450 core\n"
-"layout (location = 0) in vec3 aPos;\n"
-"void main() {\n"
-"    gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-"}\0";
-
-const char *fragmentShaderSource =
-"#version 450 core\n"
-"out vec4 FragColor;\n"
-"void main() {\n"
-"    FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-"}\0";
+float vertices2[] = {
+    // Positions        // Colours
+    1.0f, 1.0f, 0.0f,   1.0f, 0.0f, 0.0f,
+    0.5f, 1.0f, 0.0f,   0.0f, 1.0f, 0.0f,
+    1.0f, 0.5f, 0.0f,   0.0f, 0.0f, 1.0f,
+    0.5f, 0.5f, 0.0f,   0.0f, 0.5f, 1.0f
+};
+unsigned int indices2[] {
+    0, 1, 2,
+    1, 2, 3
+};
