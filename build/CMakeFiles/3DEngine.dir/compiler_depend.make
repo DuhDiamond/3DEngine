@@ -4,7 +4,7 @@
 CMakeFiles/3DEngine.dir/src/main.cpp.o: /mnt/c/Users/duhdi/Documents/3DEngine/src/main.cpp \
   /mnt/c/Users/duhdi/Documents/3DEngine/external/glad/include/KHR/khrplatform.h \
   /mnt/c/Users/duhdi/Documents/3DEngine/external/glad/include/glad/glad.h \
-  /mnt/c/Users/duhdi/Documents/3DEngine/include/shader.hpp \
+  /mnt/c/Users/duhdi/Documents/3DEngine/include/Object/Material/shader.hpp \
   /mnt/c/Users/duhdi/Documents/3DEngine/src/triangle.cpp \
   /usr/include/GLFW/glfw3.h \
   /usr/include/alloca.h \
@@ -232,7 +232,7 @@ CMakeFiles/3DEngine.dir/src/main.cpp.o: /mnt/c/Users/duhdi/Documents/3DEngine/sr
 CMakeFiles/3DEngine.dir/src/shader.cpp.o: /mnt/c/Users/duhdi/Documents/3DEngine/src/shader.cpp \
   /mnt/c/Users/duhdi/Documents/3DEngine/external/glad/include/KHR/khrplatform.h \
   /mnt/c/Users/duhdi/Documents/3DEngine/external/glad/include/glad/glad.h \
-  /mnt/c/Users/duhdi/Documents/3DEngine/include/shader.hpp \
+  /mnt/c/Users/duhdi/Documents/3DEngine/include/Object/Material/shader.hpp \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
   /usr/include/asm-generic/errno.h \
@@ -625,6 +625,8 @@ CMakeFiles/3DEngine.dir/src/shader.cpp.o: /mnt/c/Users/duhdi/Documents/3DEngine/
 
 /usr/include/asm-generic/errno-base.h:
 
+/usr/include/c++/13/bits/codecvt.h:
+
 /usr/include/c++/13/bits/move.h:
 
 /usr/include/x86_64-linux-gnu/sys/single_threaded.h:
@@ -657,10 +659,6 @@ CMakeFiles/3DEngine.dir/src/shader.cpp.o: /mnt/c/Users/duhdi/Documents/3DEngine/
 
 /usr/include/c++/13/cwchar:
 
-/usr/include/c++/13/bits/codecvt.h:
-
-/mnt/c/Users/duhdi/Documents/3DEngine/include/shader.hpp:
-
 /usr/include/GLFW/glfw3.h:
 
 /usr/include/x86_64-linux-gnu/bits/waitstatus.h:
@@ -670,6 +668,10 @@ CMakeFiles/3DEngine.dir/src/shader.cpp.o: /mnt/c/Users/duhdi/Documents/3DEngine/
 /mnt/c/Users/duhdi/Documents/3DEngine/external/glad/include/glad/glad.h:
 
 /usr/include/c++/13/bits/stl_iterator_base_types.h:
+
+/mnt/c/Users/duhdi/Documents/3DEngine/include/Object/Material/shader.hpp:
+
+/usr/include/pthread.h:
 
 /mnt/c/Users/duhdi/Documents/3DEngine/external/glad/include/KHR/khrplatform.h:
 
@@ -882,7 +884,5 @@ CMakeFiles/3DEngine.dir/src/shader.cpp.o: /mnt/c/Users/duhdi/Documents/3DEngine/
 /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h:
 
 /usr/include/linux/errno.h:
-
-/usr/include/pthread.h:
 
 /usr/include/sched.h:

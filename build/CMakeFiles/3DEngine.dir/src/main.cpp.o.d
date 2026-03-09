@@ -178,7 +178,7 @@ CMakeFiles/3DEngine.dir/src/main.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-least.h \
  /usr/include/GLFW/glfw3.h \
- /mnt/c/Users/duhdi/Documents/3DEngine/include/shader.hpp \
+ /mnt/c/Users/duhdi/Documents/3DEngine/include/Object/Material/shader.hpp \
  /usr/include/c++/13/fstream /usr/include/c++/13/bits/codecvt.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/basic_file.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++io.h \

@@ -4,7 +4,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "shader.hpp"
+#include "Object/Material/shader.hpp"
 #include "triangle.cpp"
 
 using namespace std;
@@ -51,10 +51,10 @@ int main() {
 
     const char* vertexShader1 = "../shaders/vertex1.glsl";
     const char* fragShader1 =   "../shaders/fragment1.glsl";
-    Shader object1Shader(vertexShader1, fragShader1);
+    shader object1Shader(vertexShader1, fragShader1);
 
     const char* fragShader2 =   "../shaders/fragment2.glsl";
-    Shader object2Shader(vertexShader1, fragShader2);
+    shader object2Shader(vertexShader1, fragShader2);
 
     // Vertex Array Object (VAO) and Vertex Buffer Object (VBO) setup
     unsigned int VAO1, VAO2, VBO1, VBO2, EBO1, EBO2;
@@ -123,7 +123,7 @@ int main() {
         
         float timeValue = glfwGetTime();
         float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
-        int vertexColourLocation = glGetUniformLocation(object1Shader.ID, "ourColour");
+        int vertexColourLocation = glGetUniformLocation(object1Shader.Shader_ID, "ourColour");
         // object1Shader.setInt("OurColour", vertexColourLocation);
         object1Shader.use();
         object1Shader.setFloat("OurColour", 1.0f);

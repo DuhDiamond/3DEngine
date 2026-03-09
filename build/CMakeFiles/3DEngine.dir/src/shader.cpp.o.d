@@ -1,7 +1,7 @@
 CMakeFiles/3DEngine.dir/src/shader.cpp.o: \
  /mnt/c/Users/duhdi/Documents/3DEngine/src/shader.cpp \
  /usr/include/stdc-predef.h \
- /mnt/c/Users/duhdi/Documents/3DEngine/include/shader.hpp \
+ /mnt/c/Users/duhdi/Documents/3DEngine/include/Object/Material/shader.hpp \
  /mnt/c/Users/duhdi/Documents/3DEngine/external/glad/include/glad/glad.h \
  /mnt/c/Users/duhdi/Documents/3DEngine/external/glad/include/KHR/khrplatform.h \
  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h /usr/include/stdint.h \

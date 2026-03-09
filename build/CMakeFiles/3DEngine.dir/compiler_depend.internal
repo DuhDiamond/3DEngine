@@ -5,7 +5,7 @@ CMakeFiles/3DEngine.dir/src/main.cpp.o
  /mnt/c/Users/duhdi/Documents/3DEngine/src/main.cpp
  /mnt/c/Users/duhdi/Documents/3DEngine/external/glad/include/KHR/khrplatform.h
  /mnt/c/Users/duhdi/Documents/3DEngine/external/glad/include/glad/glad.h
- /mnt/c/Users/duhdi/Documents/3DEngine/include/shader.hpp
+ /mnt/c/Users/duhdi/Documents/3DEngine/include/Object/Material/shader.hpp
  /mnt/c/Users/duhdi/Documents/3DEngine/src/triangle.cpp
  /usr/include/GLFW/glfw3.h
  /usr/include/alloca.h
@@ -234,7 +234,7 @@ CMakeFiles/3DEngine.dir/src/shader.cpp.o
  /mnt/c/Users/duhdi/Documents/3DEngine/src/shader.cpp
  /mnt/c/Users/duhdi/Documents/3DEngine/external/glad/include/KHR/khrplatform.h
  /mnt/c/Users/duhdi/Documents/3DEngine/external/glad/include/glad/glad.h
- /mnt/c/Users/duhdi/Documents/3DEngine/include/shader.hpp
+ /mnt/c/Users/duhdi/Documents/3DEngine/include/Object/Material/shader.hpp
  /usr/include/alloca.h
  /usr/include/asm-generic/errno-base.h
  /usr/include/asm-generic/errno.h

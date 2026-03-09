@@ -10,12 +10,13 @@
 
 using namespace std;
 
-class Shader {
+// Will figure out more about how to integrate this into the new reorganized class structure later on, once I get texture handling working
+class shader {
 public:
-    unsigned int ID;
+    unsigned int Shader_ID;
 
-    Shader(const char* vertexPath, const char* fragmentPath);
-    ~Shader();
+    shader(const char* vertexPath, const char* fragmentPath);
+    ~shader();
 
     void use();
     void setBool(const string &name, bool value) const;

@@ -2,19 +2,35 @@
 
 A work-in-progress 3D rendering engine built as a learning project to explore graphics programming.
 
-# About
+Here are some steps if you'd like to run it yourself. I use Windows + WSL (Windows Subsystem for Linux, based on Debian Linux) in a Visual Studio Code environment, alongside with the Remote WSL extension to locally connect to my WSL instance for faster development.
 
-This project is my attempt at building a (basic) 3D engine from scratch, combining concepts from multiple sources:
+1. Git clone the repository: In Linux/WSL, this can be done by running the following command in your terminal, from the folder you'd like to copy it into:
+git clone git@github.com:DuhDiamond/3DEngine.git
+2. Next, you will need to install GLFW as a required dependency. In Linux/WSL, you can run the following command in your terminal:
+sudo apt-install libglfw3-dev
+3. Move into the project folder, "3DEngine":  (from the folder you ran git clone git@github.com:DuhDiamond/3DEngine.git ), you can do:
+cd 3DEngine
+4. Run the following command (in Linux/WSL) to build the project:
+cmake -S . -B build
+5. Run the following command (in Linux/WSL) to compile the project:
+cmake --build build
+6. Move into the build folder (in Linux/WSL) (where the project compiled):
+cd 3DEngine
+7. Run the project:
+./3DEngine
+8. Afterwards, a window should appear on your screen. You should see a green colour changing square in the centre and gradient-coloured rectangle in the top-right.
 
-- Following along primarily with [*learnopengl.com*](https://learnopengl.com/) tutorials
-- Planning to develop alongside what I will be learning in my computer graphics coursework
-- Implementing ideas from what i've learnt from [*Ray Tracing in One Weekend*](https://raytracing.github.io/books/RayTracingInOneWeekend.html)
-- Potentially (In the long-term) work towards implementing concepts from [*Physically Based Rendering: From Theory to Implementation*](https://pbr-book.org/)
+If you're having issues running the project, message me directly and i'll try to help you as best as I can!
 
-You can follow along with my progress from logs i'm writing in the [CommitLogs](https://github.com/DuhDiamond/3DEngine/tree/main/CommitLogs) folder.
 
-# Goals
+## About
+An attempt to build a basic 3D engine from scratch, drawing from:
+- [*learnopengl.com*](https://learnopengl.com/)
+- University computer graphics coursework
+- [*Ray Tracing in One Weekend*](https://raytracing.github.io/books/RayTracingInOneWeekend.html)
+- Long-term: [*Physically Based Rendering*](https://pbr-book.org/)
 
-I aim to try and work on this at least a few hours each week when i'm free, starting from completing what is covered on LearnOpenGL, as I plan to focus primarily at the moment on just getting hands-on experience with OpenGL and graphics programming fundamentals.
+Progress logs are in the [CommitLogs](https://github.com/DuhDiamond/3DEngine/tree/main/CommitLogs) folder.
 
-In the long-term (Depending on how this goes; this is already very ambitious in scale) perhaps trying to tackle topics such as physically-based rendering would be interesting.
+## Goals
+Aiming to spend a few hours per week on this at minimum, to build a solid foundation in OpenGL and graphics fundamentals. Physically-based rendering is a longer-term stretch goal.
