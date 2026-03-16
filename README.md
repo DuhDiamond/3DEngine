@@ -23,6 +23,7 @@ cd 3DEngine
 ./3DEngine
 8. Afterwards, a window should appear on your screen. Currently, you should see the following (link):
 https://gyazo.com/c7851e9ef4e31fca7dcaab72aacae1ee
+Since Commit 5, I have started adding videos to the CommitLogs folder as well, to show visual changes over time.
 
 If you're having issues running the project, message me directly and i'll try to help you as best as I can!
 
@@ -33,6 +34,7 @@ An attempt to build a basic 3D engine from scratch, drawing from:
 - University computer graphics coursework
 - [*Ray Tracing in One Weekend*](https://raytracing.github.io/books/RayTracingInOneWeekend.html)
 - Long-term: [*Physically Based Rendering*](https://pbr-book.org/)
+... and looking to see how I can expand upon these sources with my own ideas and experimentation.
 
 Progress logs are in the [CommitLogs](https://github.com/DuhDiamond/3DEngine/tree/main/CommitLogs) folder.
 
