@@ -1,6 +1,20 @@
-# 3D Engine
+# About
 
 A work-in-progress 3D rendering engine built as a learning project to explore graphics programming.
+
+Progress logs are in the [CommitLogs](https://github.com/DuhDiamond/3DEngine/tree/main/CommitLogs) folder. Additionally, since Commit 5, I have started adding videos to the CommitLogs folder as well, to show visual changes over time.
+
+## Goals
+An attempt to build a basic 3D engine from scratch, drawing from:
+- [*learnopengl.com*](https://learnopengl.com/)
+- University computer graphics coursework
+- [*Ray Tracing in One Weekend*](https://raytracing.github.io/books/RayTracingInOneWeekend.html)
+- Long-term: [*Physically Based Rendering*](https://pbr-book.org/)
+- ... and looking to see how I can expand upon these sources with my own ideas and experimentation.
+
+Aiming to spend a few hours per week on this at minimum, to build a solid foundation in OpenGL and graphics fundamentals. Physically-based rendering is a longer-term stretch goal.
+
+# How to run:
 
 Here are some steps if you'd like to run it yourself. I use Windows + WSL (Windows Subsystem for Linux, based on Debian Linux) in a Visual Studio Code environment, alongside with the Remote WSL extension to locally connect to my WSL instance for faster development.
 
@@ -26,17 +40,3 @@ https://gyazo.com/c7851e9ef4e31fca7dcaab72aacae1ee
 Since Commit 5, I have started adding videos to the CommitLogs folder as well, to show visual changes over time.
 
 If you're having issues running the project, message me directly and i'll try to help you as best as I can!
-
-
-## About
-An attempt to build a basic 3D engine from scratch, drawing from:
-- [*learnopengl.com*](https://learnopengl.com/)
-- University computer graphics coursework
-- [*Ray Tracing in One Weekend*](https://raytracing.github.io/books/RayTracingInOneWeekend.html)
-- Long-term: [*Physically Based Rendering*](https://pbr-book.org/)
-... and looking to see how I can expand upon these sources with my own ideas and experimentation.
-
-Progress logs are in the [CommitLogs](https://github.com/DuhDiamond/3DEngine/tree/main/CommitLogs) folder.
-
-## Goals
-Aiming to spend a few hours per week on this at minimum, to build a solid foundation in OpenGL and graphics fundamentals. Physically-based rendering is a longer-term stretch goal.
