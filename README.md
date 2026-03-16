@@ -21,7 +21,8 @@ cmake --build build
 cd 3DEngine
 7. Run the project:
 ./3DEngine
-8. Afterwards, a window should appear on your screen. You should see a green colour changing square in the centre and gradient-coloured rectangle in the top-right.
+8. Afterwards, a window should appear on your screen. Currently, you should see the following (link):
+https://gyazo.com/c7851e9ef4e31fca7dcaab72aacae1ee
 
 If you're having issues running the project, message me directly and i'll try to help you as best as I can!
 
