@@ -4,45 +4,82 @@
 #include <glad/glad.h>
 #include <vector>
 
-#include "Mesh/Mesh.hpp"
-#include "Material/Material.hpp"
-#include "ObjectInstance.hpp"
+#include "IMesh.hpp"
+#include "ObjMesh.hpp"
+#include "IMaterial.hpp"
 
 using namespace std;
 
 // Class that holds a fully loaded Object to be instanced
-class Object {
+class Object
+{
 private:
-    Mesh *objectMesh = nullptr;
-    Material *objectMaterial = nullptr;
-public:
-    // Holds all the instances for this specific object
-    vector<ObjectInstance> instances = vector<ObjectInstance>();
+    ObjMesh *objectMesh = nullptr;
+    IMaterial *objectMaterial = nullptr;
+    shader *materialShader = nullptr;
 
-    // Constructor which takes in loaded data to create this object
-    Object(Mesh *mesh, Material *material);
-    Object(Mesh *mesh);
-
-    // Calls Draw() on every object instance in instances
-    void DrawAll();
-
-    // Creates an instance with an associated VBO through the OpenGL API and returns the corresponding ID for it
-    void CreateInstance(float scale, float location[3]);
-
-    ~Object();
-};
-
-class ObjectInstance {
-private:
     // Pointer which holds the associated ID for the instance's buffered data
-    unsigned int *VBO_ID = nullptr;
-    // This will hold this object's data in the format that OpenGL's pipeline expects in a dynamic array
-    float *objBuffer = nullptr;
+    unsigned int VBO_ID;
+
+    // Scale defaults to (1, 1, 1)
+    struct scale {
+        float x = 0;
+        float y = 0;
+        float z = 0;
+    };
+
+    // Position defaults to (0, 0, 0)
+    struct position {
+        float x = 0;
+        float y = 0;
+        float z = 0;
+    };
+
+    // Note for future: Works for now, but this method suffers from gimbal lock
+    // Look into alternatives (e.g., quaternions)
+    struct rotation {
+        float x = 0;
+        float y = 0;
+        float z = 0;
+    };
+
 public:
-    // When an instance is created from ObjectFactory, this constructor should set it up via the OpenGL API
-    ObjectInstance();
-    // Draws this object instance to the screen
-    void Draw();
+    // These methods are held seperately from the actual values,
+    // as each time one of these methods are called, the corresponding attribute in the OpenGL
+    // buffer will also need to be changed
+    struct SetScale {
+        void x(float x);
+        void y(float y);
+        void z(float z);
+    };
+
+    struct SetPosition {
+        void x(float x);
+        void y(float y);
+        void z(float z);
+    };
+
+    struct SetRotation {
+        void x(float x);
+        void y(float y);
+        void z(float z);
+    };
+    // Methods to attach things through openGL, and if relevant, register it through OpenGL
+    void Attach(ObjMesh *mesh);
+    void Attach(IMaterial *material);
+    void Attach(shader *shader);
+
+    void useShader();
+    
+    unsigned int getVAO_ID();
+    unsigned int getShaderID();
+    unsigned int getVBO_ID();
+
+    // Builds the buffer for this object and displays it
+    void Instantiate();
+
+    // Once object is deleted, destructor should handle the rest
+    ~Object();
 };
 
 #endif

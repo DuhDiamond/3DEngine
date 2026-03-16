@@ -166,6 +166,78 @@ external/glad/src/glad.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/glad.dir/build.make CMakeFiles/glad.dir/external/glad/src/glad.c.s
 .PHONY : external/glad/src/glad.c.s
 
+src/MeshLoader.o: src/MeshLoader.cpp.o
+.PHONY : src/MeshLoader.o
+
+# target to build an object file
+src/MeshLoader.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/3DEngine.dir/build.make CMakeFiles/3DEngine.dir/src/MeshLoader.cpp.o
+.PHONY : src/MeshLoader.cpp.o
+
+src/MeshLoader.i: src/MeshLoader.cpp.i
+.PHONY : src/MeshLoader.i
+
+# target to preprocess a source file
+src/MeshLoader.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/3DEngine.dir/build.make CMakeFiles/3DEngine.dir/src/MeshLoader.cpp.i
+.PHONY : src/MeshLoader.cpp.i
+
+src/MeshLoader.s: src/MeshLoader.cpp.s
+.PHONY : src/MeshLoader.s
+
+# target to generate assembly for a file
+src/MeshLoader.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/3DEngine.dir/build.make CMakeFiles/3DEngine.dir/src/MeshLoader.cpp.s
+.PHONY : src/MeshLoader.cpp.s
+
+src/ObjMesh.o: src/ObjMesh.cpp.o
+.PHONY : src/ObjMesh.o
+
+# target to build an object file
+src/ObjMesh.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/3DEngine.dir/build.make CMakeFiles/3DEngine.dir/src/ObjMesh.cpp.o
+.PHONY : src/ObjMesh.cpp.o
+
+src/ObjMesh.i: src/ObjMesh.cpp.i
+.PHONY : src/ObjMesh.i
+
+# target to preprocess a source file
+src/ObjMesh.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/3DEngine.dir/build.make CMakeFiles/3DEngine.dir/src/ObjMesh.cpp.i
+.PHONY : src/ObjMesh.cpp.i
+
+src/ObjMesh.s: src/ObjMesh.cpp.s
+.PHONY : src/ObjMesh.s
+
+# target to generate assembly for a file
+src/ObjMesh.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/3DEngine.dir/build.make CMakeFiles/3DEngine.dir/src/ObjMesh.cpp.s
+.PHONY : src/ObjMesh.cpp.s
+
+src/Object.o: src/Object.cpp.o
+.PHONY : src/Object.o
+
+# target to build an object file
+src/Object.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/3DEngine.dir/build.make CMakeFiles/3DEngine.dir/src/Object.cpp.o
+.PHONY : src/Object.cpp.o
+
+src/Object.i: src/Object.cpp.i
+.PHONY : src/Object.i
+
+# target to preprocess a source file
+src/Object.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/3DEngine.dir/build.make CMakeFiles/3DEngine.dir/src/Object.cpp.i
+.PHONY : src/Object.cpp.i
+
+src/Object.s: src/Object.cpp.s
+.PHONY : src/Object.s
+
+# target to generate assembly for a file
+src/Object.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/3DEngine.dir/build.make CMakeFiles/3DEngine.dir/src/Object.cpp.s
+.PHONY : src/Object.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -227,6 +299,15 @@ help:
 	@echo "... external/glad/src/glad.o"
 	@echo "... external/glad/src/glad.i"
 	@echo "... external/glad/src/glad.s"
+	@echo "... src/MeshLoader.o"
+	@echo "... src/MeshLoader.i"
+	@echo "... src/MeshLoader.s"
+	@echo "... src/ObjMesh.o"
+	@echo "... src/ObjMesh.i"
+	@echo "... src/ObjMesh.s"
+	@echo "... src/Object.o"
+	@echo "... src/Object.i"
+	@echo "... src/Object.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

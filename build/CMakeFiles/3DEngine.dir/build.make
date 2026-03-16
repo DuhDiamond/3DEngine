@@ -97,22 +97,70 @@ CMakeFiles/3DEngine.dir/src/shader.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/3DEngine.dir/src/shader.cpp.s"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/duhdi/Documents/3DEngine/src/shader.cpp -o CMakeFiles/3DEngine.dir/src/shader.cpp.s
 
+CMakeFiles/3DEngine.dir/src/ObjMesh.cpp.o: CMakeFiles/3DEngine.dir/flags.make
+CMakeFiles/3DEngine.dir/src/ObjMesh.cpp.o: /mnt/c/Users/duhdi/Documents/3DEngine/src/ObjMesh.cpp
+CMakeFiles/3DEngine.dir/src/ObjMesh.cpp.o: CMakeFiles/3DEngine.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/c/Users/duhdi/Documents/3DEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/3DEngine.dir/src/ObjMesh.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/3DEngine.dir/src/ObjMesh.cpp.o -MF CMakeFiles/3DEngine.dir/src/ObjMesh.cpp.o.d -o CMakeFiles/3DEngine.dir/src/ObjMesh.cpp.o -c /mnt/c/Users/duhdi/Documents/3DEngine/src/ObjMesh.cpp
+
+CMakeFiles/3DEngine.dir/src/ObjMesh.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/3DEngine.dir/src/ObjMesh.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/Users/duhdi/Documents/3DEngine/src/ObjMesh.cpp > CMakeFiles/3DEngine.dir/src/ObjMesh.cpp.i
+
+CMakeFiles/3DEngine.dir/src/ObjMesh.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/3DEngine.dir/src/ObjMesh.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/duhdi/Documents/3DEngine/src/ObjMesh.cpp -o CMakeFiles/3DEngine.dir/src/ObjMesh.cpp.s
+
+CMakeFiles/3DEngine.dir/src/MeshLoader.cpp.o: CMakeFiles/3DEngine.dir/flags.make
+CMakeFiles/3DEngine.dir/src/MeshLoader.cpp.o: /mnt/c/Users/duhdi/Documents/3DEngine/src/MeshLoader.cpp
+CMakeFiles/3DEngine.dir/src/MeshLoader.cpp.o: CMakeFiles/3DEngine.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/c/Users/duhdi/Documents/3DEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/3DEngine.dir/src/MeshLoader.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/3DEngine.dir/src/MeshLoader.cpp.o -MF CMakeFiles/3DEngine.dir/src/MeshLoader.cpp.o.d -o CMakeFiles/3DEngine.dir/src/MeshLoader.cpp.o -c /mnt/c/Users/duhdi/Documents/3DEngine/src/MeshLoader.cpp
+
+CMakeFiles/3DEngine.dir/src/MeshLoader.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/3DEngine.dir/src/MeshLoader.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/Users/duhdi/Documents/3DEngine/src/MeshLoader.cpp > CMakeFiles/3DEngine.dir/src/MeshLoader.cpp.i
+
+CMakeFiles/3DEngine.dir/src/MeshLoader.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/3DEngine.dir/src/MeshLoader.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/duhdi/Documents/3DEngine/src/MeshLoader.cpp -o CMakeFiles/3DEngine.dir/src/MeshLoader.cpp.s
+
+CMakeFiles/3DEngine.dir/src/Object.cpp.o: CMakeFiles/3DEngine.dir/flags.make
+CMakeFiles/3DEngine.dir/src/Object.cpp.o: /mnt/c/Users/duhdi/Documents/3DEngine/src/Object.cpp
+CMakeFiles/3DEngine.dir/src/Object.cpp.o: CMakeFiles/3DEngine.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/c/Users/duhdi/Documents/3DEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/3DEngine.dir/src/Object.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/3DEngine.dir/src/Object.cpp.o -MF CMakeFiles/3DEngine.dir/src/Object.cpp.o.d -o CMakeFiles/3DEngine.dir/src/Object.cpp.o -c /mnt/c/Users/duhdi/Documents/3DEngine/src/Object.cpp
+
+CMakeFiles/3DEngine.dir/src/Object.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/3DEngine.dir/src/Object.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/c/Users/duhdi/Documents/3DEngine/src/Object.cpp > CMakeFiles/3DEngine.dir/src/Object.cpp.i
+
+CMakeFiles/3DEngine.dir/src/Object.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/3DEngine.dir/src/Object.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/c/Users/duhdi/Documents/3DEngine/src/Object.cpp -o CMakeFiles/3DEngine.dir/src/Object.cpp.s
+
 # Object files for target 3DEngine
 3DEngine_OBJECTS = \
 "CMakeFiles/3DEngine.dir/src/main.cpp.o" \
-"CMakeFiles/3DEngine.dir/src/shader.cpp.o"
+"CMakeFiles/3DEngine.dir/src/shader.cpp.o" \
+"CMakeFiles/3DEngine.dir/src/ObjMesh.cpp.o" \
+"CMakeFiles/3DEngine.dir/src/MeshLoader.cpp.o" \
+"CMakeFiles/3DEngine.dir/src/Object.cpp.o"
 
 # External object files for target 3DEngine
 3DEngine_EXTERNAL_OBJECTS =
 
 3DEngine: CMakeFiles/3DEngine.dir/src/main.cpp.o
 3DEngine: CMakeFiles/3DEngine.dir/src/shader.cpp.o
+3DEngine: CMakeFiles/3DEngine.dir/src/ObjMesh.cpp.o
+3DEngine: CMakeFiles/3DEngine.dir/src/MeshLoader.cpp.o
+3DEngine: CMakeFiles/3DEngine.dir/src/Object.cpp.o
 3DEngine: CMakeFiles/3DEngine.dir/build.make
 3DEngine: libglad.a
 3DEngine: /usr/lib/x86_64-linux-gnu/libGLX.so
 3DEngine: /usr/lib/x86_64-linux-gnu/libOpenGL.so
 3DEngine: CMakeFiles/3DEngine.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/mnt/c/Users/duhdi/Documents/3DEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable 3DEngine"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/mnt/c/Users/duhdi/Documents/3DEngine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable 3DEngine"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/3DEngine.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

@@ -1,38 +1,54 @@
-#include "Object/Material/shader.hpp"
+#include "Object/shader.hpp"
 
 using namespace std;
 
-shader::shader(const char* vertexPath, const char* fragmentPath) {
+unsigned int shader::getShaderID()
+{
+    return SHADER_ID;
+}
+
+void shader::loadShader(const char* vertexPath, const char* fragmentPath)
+{
     string vertexCode, fragmentCode;
     ifstream vShaderFile, fShaderFile;
 
-    // Ensures the ifstreams can throw exceptions
-    vShaderFile.exceptions(ifstream::failbit | ifstream::badbit);
-    fShaderFile.exceptions(ifstream::failbit | ifstream::badbit);
+    vShaderFile.open(vertexPath);
+    vShaderFile.exceptions(ifstream::badbit | ifstream::failbit);
 
-    try {
-        vShaderFile.open(vertexPath);
-        fShaderFile.open(fragmentPath);
+    fShaderFile.open(fragmentPath);
+    fShaderFile.exceptions(ifstream::badbit | ifstream::failbit);
 
-        stringstream vShaderStream, fShaderStream;
-        vShaderStream << vShaderFile.rdbuf();
-        fShaderStream << fShaderFile.rdbuf();
+    if (vShaderFile.is_open() && fShaderFile.is_open()) {
+        try {
+            stringstream vShaderStream, fShaderStream;
+            vShaderStream << vShaderFile.rdbuf();
+            fShaderStream << fShaderFile.rdbuf();
 
-        vShaderFile.close();
-        fShaderFile.close();
+            vShaderFile.close();
+            fShaderFile.close();
 
-        vertexCode =    vShaderStream.str();
-        fragmentCode =  fShaderStream.str();
-
-    } catch (ifstream::failure e) {
-        cout << "ERROR::SHADER::FILE_NOT_SUCCESSFULLY_READ" << endl;
+            vertexCode =    vShaderStream.str();
+            fragmentCode =  fShaderStream.str();
+        } catch (exception &e) {
+            cout << "ERROR: Shader file(s) not successfully read:" << endl;
+            if (vShaderFile.badbit)  perror("vShaderFile: badbit (read/write error on i/o)");
+            if (vShaderFile.failbit) perror("vShaderFile: failbit (logic error on i/o)");
+            
+            if (fShaderFile.badbit)  perror("fShaderFile: badbit (read/write error on i/o)");
+            if (fShaderFile.failbit) perror("fShaderFile: failbit (logic error on i/o)");
+            
+            cout << "Information: " << e.what() << endl;
+        }
+    } else {
+        cout << "Error: Shader file(s) not successfully opened" << endl;
         if (!vShaderFile) {
-            perror("open failure for vertex shader: ");
+            perror("Open failure for vertex shader");
         }
         if (!fShaderFile) {
-            perror("open failure for fragment shader: ");
+            perror("Open failure for fragment shader");
         }
     }
+
     const char* vertexShaderCode = vertexCode.c_str();
     const char* fragmentShaderCode = fragmentCode.c_str();
 
@@ -62,14 +78,15 @@ shader::shader(const char* vertexPath, const char* fragmentPath) {
     }
 
     // Linking to ID of this given class instance
-    Shader_ID = glCreateProgram();
-    glAttachShader(Shader_ID, vertexShader);
-    glAttachShader(Shader_ID, fragmentShader);
-    glLinkProgram(Shader_ID);
+    SHADER_ID = glCreateProgram();
+    glAttachShader(SHADER_ID, vertexShader);
+    glAttachShader(SHADER_ID, fragmentShader);
+    glLinkProgram(SHADER_ID);
     
-    glGetProgramiv(Shader_ID, GL_LINK_STATUS, &success);
-    if (!success) {
-        glGetProgramInfoLog(Shader_ID, 512, nullptr, infoLog);
+    glGetProgramiv(SHADER_ID, GL_LINK_STATUS, &success);
+    if (!success)
+    {
+        glGetProgramInfoLog(SHADER_ID, 512, nullptr, infoLog);
         cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << endl;
     }
 
@@ -78,22 +95,27 @@ shader::shader(const char* vertexPath, const char* fragmentPath) {
     glDeleteShader(fragmentShader);
 }
 
-void shader::use() {
-    glUseProgram(Shader_ID);
+void shader::use()
+{
+    glUseProgram(SHADER_ID);
 }
 
-void shader::setBool(const string &name, bool value) const {
-    glUniform1i(glGetUniformLocation(Shader_ID, name.c_str()), (int)value);
+void shader::setBool(const string &name, bool value) const
+{
+    glUniform1i(glGetUniformLocation(SHADER_ID, name.c_str()), (int)value);
 }
 
-void shader::setInt(const string &name, int value) const {
-    glUniform1i(glGetUniformLocation(Shader_ID, name.c_str()), value);
+void shader::setInt(const string &name, int value) const
+{
+    glUniform1i(glGetUniformLocation(SHADER_ID, name.c_str()), value);
 }
 
-void shader::setFloat(const string &name, float value) const {
-    glUniform1f(glGetUniformLocation(Shader_ID, name.c_str()), value);
+void shader::setFloat(const string &name, float value) const
+{
+    glUniform1f(glGetUniformLocation(SHADER_ID, name.c_str()), value);
 }
 
-shader::~shader() {
-    glDeleteProgram(Shader_ID);
+shader::~shader()
+{
+    glDeleteProgram(SHADER_ID);
 }

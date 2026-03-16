@@ -1,20 +1,10 @@
-#ifndef MATERIAL_HPP
-#define MATERIAL_HPP
+#ifndef PBRMATERIAL_HPP
+#define PBRMATERIAL_HPP
 
-#include <vector>
+#include "IMaterial.hpp"
 
-#include "textureData.hpp"
-#include "shader.hpp"
-
-
-class Material {
-private:
-    // Will hold relevant texture data sets according to the material type that inherits it
-    shader *materialShader = nullptr;
-public:
-};
-
-class PBRMaterial : Material {
+class PBRMaterial : IMaterial
+{
 private:
     textureData *diffuse = nullptr;
     textureData *metallic = nullptr;

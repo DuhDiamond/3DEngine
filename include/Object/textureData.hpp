@@ -6,7 +6,8 @@
 
 using namespace std;
 
-class textureData {
+class textureData
+{
 private:
     int *width;
     int *height;

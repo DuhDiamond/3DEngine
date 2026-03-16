@@ -1,9 +1,20 @@
 #version 450 core
-layout (location = 0) in vec3 aPos;
-layout (location = 1) in vec3 aColour;
-out vec3 aPosColour;
+layout (location = 0) in vec3 position;
+layout (location = 1) in vec3 vertexColour;
+layout (location = 2) in vec2 textureCoordinate;
+layout (location = 3) in vec3 normal;
+
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 projection;
+
+out vec3 vertexCol;
+out vec3 vertexNormal;
+out vec2 vertexTexCoord;
 
 void main() {
-    aPosColour = vec3(aPos);
-    gl_Position = vec4(aPos, 1.0);
+    vertexCol = vec3(vertexColour);
+    vertexTexCoord = vec2(textureCoordinate);
+    vertexNormal = vec3(normal);
+    gl_Position = projection * view * model * vec4(position, 1.0);
 }

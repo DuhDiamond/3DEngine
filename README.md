@@ -6,8 +6,11 @@ Here are some steps if you'd like to run it yourself. I use Windows + WSL (Windo
 
 1. Git clone the repository: In Linux/WSL, this can be done by running the following command in your terminal, from the folder you'd like to copy it into:
 git clone git@github.com:DuhDiamond/3DEngine.git
-2. Next, you will need to install GLFW as a required dependency. In Linux/WSL, you can run the following command in your terminal:
-sudo apt-install libglfw3-dev
+2. Next, you will need to install several required dependencies. In Linux/WSL, you can run the following commands in your terminal (seperately) as one easy way to get them:
+First, for GLFW:
+sudo apt install libglfw3-dev
+Second, for STB:
+sudo apt install libstb-dev
 3. Move into the project folder, "3DEngine":  (from the folder you ran git clone git@github.com:DuhDiamond/3DEngine.git ), you can do:
 cd 3DEngine
 4. Run the following command (in Linux/WSL) to build the project:

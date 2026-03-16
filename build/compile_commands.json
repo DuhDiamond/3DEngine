@@ -16,5 +16,23 @@
   "command": "/usr/bin/g++  -I/mnt/c/Users/duhdi/Documents/3DEngine/include -I/mnt/c/Users/duhdi/Documents/3DEngine/external/glad/include -g -o CMakeFiles/3DEngine.dir/src/shader.cpp.o -c /mnt/c/Users/duhdi/Documents/3DEngine/src/shader.cpp",
   "file": "/mnt/c/Users/duhdi/Documents/3DEngine/src/shader.cpp",
   "output": "CMakeFiles/3DEngine.dir/src/shader.cpp.o"
+},
+{
+  "directory": "/mnt/c/Users/duhdi/Documents/3DEngine/build",
+  "command": "/usr/bin/g++  -I/mnt/c/Users/duhdi/Documents/3DEngine/include -I/mnt/c/Users/duhdi/Documents/3DEngine/external/glad/include -g -o CMakeFiles/3DEngine.dir/src/ObjMesh.cpp.o -c /mnt/c/Users/duhdi/Documents/3DEngine/src/ObjMesh.cpp",
+  "file": "/mnt/c/Users/duhdi/Documents/3DEngine/src/ObjMesh.cpp",
+  "output": "CMakeFiles/3DEngine.dir/src/ObjMesh.cpp.o"
+},
+{
+  "directory": "/mnt/c/Users/duhdi/Documents/3DEngine/build",
+  "command": "/usr/bin/g++  -I/mnt/c/Users/duhdi/Documents/3DEngine/include -I/mnt/c/Users/duhdi/Documents/3DEngine/external/glad/include -g -o CMakeFiles/3DEngine.dir/src/MeshLoader.cpp.o -c /mnt/c/Users/duhdi/Documents/3DEngine/src/MeshLoader.cpp",
+  "file": "/mnt/c/Users/duhdi/Documents/3DEngine/src/MeshLoader.cpp",
+  "output": "CMakeFiles/3DEngine.dir/src/MeshLoader.cpp.o"
+},
+{
+  "directory": "/mnt/c/Users/duhdi/Documents/3DEngine/build",
+  "command": "/usr/bin/g++  -I/mnt/c/Users/duhdi/Documents/3DEngine/include -I/mnt/c/Users/duhdi/Documents/3DEngine/external/glad/include -g -o CMakeFiles/3DEngine.dir/src/Object.cpp.o -c /mnt/c/Users/duhdi/Documents/3DEngine/src/Object.cpp",
+  "file": "/mnt/c/Users/duhdi/Documents/3DEngine/src/Object.cpp",
+  "output": "CMakeFiles/3DEngine.dir/src/Object.cpp.o"
 }
 ]

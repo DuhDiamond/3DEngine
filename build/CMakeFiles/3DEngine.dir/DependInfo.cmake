@@ -8,6 +8,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/mnt/c/Users/duhdi/Documents/3DEngine/src/MeshLoader.cpp" "CMakeFiles/3DEngine.dir/src/MeshLoader.cpp.o" "gcc" "CMakeFiles/3DEngine.dir/src/MeshLoader.cpp.o.d"
+  "/mnt/c/Users/duhdi/Documents/3DEngine/src/ObjMesh.cpp" "CMakeFiles/3DEngine.dir/src/ObjMesh.cpp.o" "gcc" "CMakeFiles/3DEngine.dir/src/ObjMesh.cpp.o.d"
+  "/mnt/c/Users/duhdi/Documents/3DEngine/src/Object.cpp" "CMakeFiles/3DEngine.dir/src/Object.cpp.o" "gcc" "CMakeFiles/3DEngine.dir/src/Object.cpp.o.d"
   "/mnt/c/Users/duhdi/Documents/3DEngine/src/main.cpp" "CMakeFiles/3DEngine.dir/src/main.cpp.o" "gcc" "CMakeFiles/3DEngine.dir/src/main.cpp.o.d"
   "/mnt/c/Users/duhdi/Documents/3DEngine/src/shader.cpp" "CMakeFiles/3DEngine.dir/src/shader.cpp.o" "gcc" "CMakeFiles/3DEngine.dir/src/shader.cpp.o.d"
   )
