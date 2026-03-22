@@ -7,6 +7,9 @@
 class ObjMesh : public IMesh
 {
 private:
+    // Pointer which holds the associated ID for the loaded mesh's buffered data
+    unsigned int VBO_ID;
+
     // List of geometric coordinates
     struct position
     {
@@ -21,10 +24,11 @@ private:
     // Blender and 3DSMax. This won't be in every OBJ file
     // Note: Blender does not export these as 6-decimal floats, but 4-decimal numbers
     // May need to be changed (if it can't represent same type of numbers)
+
     struct colour {
-        float r = 0;
-        float g = 0;
-        float b = 0;
+        float r;
+        float g;
+        float b;
     };
     vector<colour> vertexColours;
 
@@ -64,17 +68,20 @@ private:
 
     vector<unsigned int> EBOIndices;
 
-public:
     // readVertexCoordinateData handles both vertex position and vertex colours
     void readVertexCoordinateData(stringstream &linestream);
     void readVertexNormalData(stringstream &linestream);
     void readVertexTextureCoordinateData(stringstream &linestream);
     void readPolygonFaceIndices(string &element, stringstream &linestream, stringstream &vertexstream);
+    
+    void buildBuffer();
 
+public:
     void loadMesh(string meshPath);
 
+    void bindMeshVAO();
     unsigned int getEBOSize();
-    void buildBuffer();
+    unsigned int getVBO_ID();
 };
 
 #endif

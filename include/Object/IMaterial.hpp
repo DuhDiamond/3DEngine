@@ -1,10 +1,10 @@
-#ifndef MATERIAL_HPP
-#define MATERIAL_HPP
+#ifndef IMATERIAL_HPP
+#define IMATERIAL_HPP
 
 #include <vector>
 
 #include "textureData.hpp"
-#include "shader.hpp"
+#include "materialShader.hpp"
 
 
 class IMaterial

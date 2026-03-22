@@ -349,7 +349,7 @@ CMakeFiles/3DEngine.dir/src/main.cpp.o: \
  /usr/include/string.h /usr/include/strings.h \
  /usr/include/glm/gtc/type_ptr.inl /usr/include/stb/stb_image.h \
  /usr/include/c++/13/stdlib.h \
- /mnt/c/Users/duhdi/Documents/3DEngine/include/Object/shader.hpp \
+ /mnt/c/Users/duhdi/Documents/3DEngine/include/Object/materialShader.hpp \
  /usr/include/c++/13/fstream /usr/include/c++/13/bits/codecvt.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/basic_file.h \
  /usr/include/x86_64-linux-gnu/c++/13/bits/c++io.h \
@@ -365,5 +365,22 @@ CMakeFiles/3DEngine.dir/src/main.cpp.o: \
  /mnt/c/Users/duhdi/Documents/3DEngine/include/Object/ObjMesh.hpp \
  /mnt/c/Users/duhdi/Documents/3DEngine/include/Object/IMaterial.hpp \
  /mnt/c/Users/duhdi/Documents/3DEngine/include/Object/textureData.hpp \
- /mnt/c/Users/duhdi/Documents/3DEngine/include/Object/shader.hpp \
+ /mnt/c/Users/duhdi/Documents/3DEngine/include/Object/materialShader.hpp \
+ /mnt/c/Users/duhdi/Documents/3DEngine/include/Object/PBRMaterial.hpp \
+ /usr/include/c++/13/memory /usr/include/c++/13/bits/stl_tempbuf.h \
+ /usr/include/c++/13/bits/stl_raw_storage_iter.h \
+ /usr/include/c++/13/bits/align.h /usr/include/c++/13/bits/unique_ptr.h \
+ /usr/include/c++/13/bits/shared_ptr.h \
+ /usr/include/c++/13/bits/shared_ptr_base.h \
+ /usr/include/c++/13/bits/allocated_ptr.h \
+ /usr/include/c++/13/ext/aligned_buffer.h \
+ /usr/include/c++/13/ext/concurrence.h \
+ /usr/include/c++/13/bits/shared_ptr_atomic.h \
+ /usr/include/c++/13/bits/atomic_base.h \
+ /usr/include/c++/13/bits/atomic_lockfree_defines.h \
+ /usr/include/c++/13/backward/auto_ptr.h \
+ /usr/include/c++/13/pstl/glue_memory_defs.h \
+ /usr/include/c++/13/pstl/execution_defs.h \
+ /mnt/c/Users/duhdi/Documents/3DEngine/include/Object/PBRMaterial.hpp \
+ /mnt/c/Users/duhdi/Documents/3DEngine/include/Scene/Clock.hpp \
  /mnt/c/Users/duhdi/Documents/3DEngine/src/triangle.cpp

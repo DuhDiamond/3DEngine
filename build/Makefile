@@ -166,29 +166,29 @@ external/glad/src/glad.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/glad.dir/build.make CMakeFiles/glad.dir/external/glad/src/glad.c.s
 .PHONY : external/glad/src/glad.c.s
 
-src/MeshLoader.o: src/MeshLoader.cpp.o
-.PHONY : src/MeshLoader.o
+src/Clock.o: src/Clock.cpp.o
+.PHONY : src/Clock.o
 
 # target to build an object file
-src/MeshLoader.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/3DEngine.dir/build.make CMakeFiles/3DEngine.dir/src/MeshLoader.cpp.o
-.PHONY : src/MeshLoader.cpp.o
+src/Clock.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/3DEngine.dir/build.make CMakeFiles/3DEngine.dir/src/Clock.cpp.o
+.PHONY : src/Clock.cpp.o
 
-src/MeshLoader.i: src/MeshLoader.cpp.i
-.PHONY : src/MeshLoader.i
+src/Clock.i: src/Clock.cpp.i
+.PHONY : src/Clock.i
 
 # target to preprocess a source file
-src/MeshLoader.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/3DEngine.dir/build.make CMakeFiles/3DEngine.dir/src/MeshLoader.cpp.i
-.PHONY : src/MeshLoader.cpp.i
+src/Clock.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/3DEngine.dir/build.make CMakeFiles/3DEngine.dir/src/Clock.cpp.i
+.PHONY : src/Clock.cpp.i
 
-src/MeshLoader.s: src/MeshLoader.cpp.s
-.PHONY : src/MeshLoader.s
+src/Clock.s: src/Clock.cpp.s
+.PHONY : src/Clock.s
 
 # target to generate assembly for a file
-src/MeshLoader.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/3DEngine.dir/build.make CMakeFiles/3DEngine.dir/src/MeshLoader.cpp.s
-.PHONY : src/MeshLoader.cpp.s
+src/Clock.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/3DEngine.dir/build.make CMakeFiles/3DEngine.dir/src/Clock.cpp.s
+.PHONY : src/Clock.cpp.s
 
 src/ObjMesh.o: src/ObjMesh.cpp.o
 .PHONY : src/ObjMesh.o
@@ -238,6 +238,30 @@ src/Object.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/3DEngine.dir/build.make CMakeFiles/3DEngine.dir/src/Object.cpp.s
 .PHONY : src/Object.cpp.s
 
+src/PBRMaterial.o: src/PBRMaterial.cpp.o
+.PHONY : src/PBRMaterial.o
+
+# target to build an object file
+src/PBRMaterial.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/3DEngine.dir/build.make CMakeFiles/3DEngine.dir/src/PBRMaterial.cpp.o
+.PHONY : src/PBRMaterial.cpp.o
+
+src/PBRMaterial.i: src/PBRMaterial.cpp.i
+.PHONY : src/PBRMaterial.i
+
+# target to preprocess a source file
+src/PBRMaterial.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/3DEngine.dir/build.make CMakeFiles/3DEngine.dir/src/PBRMaterial.cpp.i
+.PHONY : src/PBRMaterial.cpp.i
+
+src/PBRMaterial.s: src/PBRMaterial.cpp.s
+.PHONY : src/PBRMaterial.s
+
+# target to generate assembly for a file
+src/PBRMaterial.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/3DEngine.dir/build.make CMakeFiles/3DEngine.dir/src/PBRMaterial.cpp.s
+.PHONY : src/PBRMaterial.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -262,29 +286,53 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/3DEngine.dir/build.make CMakeFiles/3DEngine.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
-src/shader.o: src/shader.cpp.o
-.PHONY : src/shader.o
+src/materialShader.o: src/materialShader.cpp.o
+.PHONY : src/materialShader.o
 
 # target to build an object file
-src/shader.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/3DEngine.dir/build.make CMakeFiles/3DEngine.dir/src/shader.cpp.o
-.PHONY : src/shader.cpp.o
+src/materialShader.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/3DEngine.dir/build.make CMakeFiles/3DEngine.dir/src/materialShader.cpp.o
+.PHONY : src/materialShader.cpp.o
 
-src/shader.i: src/shader.cpp.i
-.PHONY : src/shader.i
+src/materialShader.i: src/materialShader.cpp.i
+.PHONY : src/materialShader.i
 
 # target to preprocess a source file
-src/shader.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/3DEngine.dir/build.make CMakeFiles/3DEngine.dir/src/shader.cpp.i
-.PHONY : src/shader.cpp.i
+src/materialShader.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/3DEngine.dir/build.make CMakeFiles/3DEngine.dir/src/materialShader.cpp.i
+.PHONY : src/materialShader.cpp.i
 
-src/shader.s: src/shader.cpp.s
-.PHONY : src/shader.s
+src/materialShader.s: src/materialShader.cpp.s
+.PHONY : src/materialShader.s
 
 # target to generate assembly for a file
-src/shader.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/3DEngine.dir/build.make CMakeFiles/3DEngine.dir/src/shader.cpp.s
-.PHONY : src/shader.cpp.s
+src/materialShader.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/3DEngine.dir/build.make CMakeFiles/3DEngine.dir/src/materialShader.cpp.s
+.PHONY : src/materialShader.cpp.s
+
+src/textureData.o: src/textureData.cpp.o
+.PHONY : src/textureData.o
+
+# target to build an object file
+src/textureData.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/3DEngine.dir/build.make CMakeFiles/3DEngine.dir/src/textureData.cpp.o
+.PHONY : src/textureData.cpp.o
+
+src/textureData.i: src/textureData.cpp.i
+.PHONY : src/textureData.i
+
+# target to preprocess a source file
+src/textureData.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/3DEngine.dir/build.make CMakeFiles/3DEngine.dir/src/textureData.cpp.i
+.PHONY : src/textureData.cpp.i
+
+src/textureData.s: src/textureData.cpp.s
+.PHONY : src/textureData.s
+
+# target to generate assembly for a file
+src/textureData.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/3DEngine.dir/build.make CMakeFiles/3DEngine.dir/src/textureData.cpp.s
+.PHONY : src/textureData.cpp.s
 
 # Help Target
 help:
@@ -299,21 +347,27 @@ help:
 	@echo "... external/glad/src/glad.o"
 	@echo "... external/glad/src/glad.i"
 	@echo "... external/glad/src/glad.s"
-	@echo "... src/MeshLoader.o"
-	@echo "... src/MeshLoader.i"
-	@echo "... src/MeshLoader.s"
+	@echo "... src/Clock.o"
+	@echo "... src/Clock.i"
+	@echo "... src/Clock.s"
 	@echo "... src/ObjMesh.o"
 	@echo "... src/ObjMesh.i"
 	@echo "... src/ObjMesh.s"
 	@echo "... src/Object.o"
 	@echo "... src/Object.i"
 	@echo "... src/Object.s"
+	@echo "... src/PBRMaterial.o"
+	@echo "... src/PBRMaterial.i"
+	@echo "... src/PBRMaterial.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
-	@echo "... src/shader.o"
-	@echo "... src/shader.i"
-	@echo "... src/shader.s"
+	@echo "... src/materialShader.o"
+	@echo "... src/materialShader.i"
+	@echo "... src/materialShader.s"
+	@echo "... src/textureData.o"
+	@echo "... src/textureData.i"
+	@echo "... src/textureData.s"
 .PHONY : help
 
 

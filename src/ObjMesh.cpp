@@ -13,7 +13,9 @@ void ObjMesh::readVertexCoordinateData(stringstream &linestream)
     // cout << "Creating new position coordinate number " << positionCount + 1 << endl;
     // Initialize new vertex in the vertexBuffer list
     position pos;
-    linestream >> pos.x >> pos.y >> pos.z;
+    linestream >> pos.x;
+    linestream >> pos.y;
+    linestream >> pos.z;
     // cout << pos.x << " " << pos.y << " " << pos.z << endl;
     // If vertex colours exist, add them immediately (information is on same line as position)
     if (!linestream.eof()) {
@@ -22,7 +24,7 @@ void ObjMesh::readVertexCoordinateData(stringstream &linestream)
         linestream >> col.r;
         linestream >> col.g;
         linestream >> col.b;
-        // cout << pos.r << " " << pos.g << " " << pos.b << endl;
+        // cout << col.r << " " << col.g << " " << col.b << endl;
         vertexColours.push_back(col);
     }
     positionCoordinates.push_back(pos);
@@ -94,7 +96,7 @@ void ObjMesh::loadMesh(string meshPath)
 {
     // Since filepaths are relative to where executable is run, and it builds into the build folder,
     // I need to do this for now; will figure out a more proper way to manage it later
-    string absolutePath = "../" + meshPath;
+    string absolutePath = "../Meshes/" + meshPath;
     ifstream objFile;
 
     cout << absolutePath << endl;
@@ -142,9 +144,12 @@ void ObjMesh::loadMesh(string meshPath)
             cout << textureCoordinates.size() << " textureCoordinates" << endl;
             cout << polygonList.size() << " faces" << endl;
             cout << "---------------------------------------" << endl;
+
+            buildBuffer();
+
         } catch (exception e) {
             cout << "ERROR: mesh file not successfully read:" << endl;
-            if (objFile.badbit)  perror("objFile: badbit (read/write error on i/o)");
+            if (objFile.badbit) perror("objFile: badbit (read/write error on i/o)");
             // if (objFile.failbit) perror("objFile: failbit (logic error on i/o)");
             
             cout << "Information: " << e.what() << endl;
@@ -214,15 +219,42 @@ void ObjMesh::buildBuffer() {
         buffer[bufferIndex] = v.positionCoordinate->x;
         buffer[bufferIndex + 1] = v.positionCoordinate->y;
         buffer[bufferIndex + 2] = v.positionCoordinate->z;
-        if (!vertexColours.empty()) buffer[bufferIndex + 3] = v.vertexColour->r;
-        if (!vertexColours.empty()) buffer[bufferIndex + 4] = v.vertexColour->g;
-        if (!vertexColours.empty()) buffer[bufferIndex + 5] = v.vertexColour->b;
+        // If the file does not have vertex colours, should default to (0.5, 0.5, 0.5) (grey)
+        if (!vertexColours.empty()) buffer[bufferIndex + 3] = v.vertexColour->r; else buffer[bufferIndex + 3] = 0.5;
+        if (!vertexColours.empty()) buffer[bufferIndex + 4] = v.vertexColour->g; else buffer[bufferIndex + 4] = 0.5;
+        if (!vertexColours.empty()) buffer[bufferIndex + 5] = v.vertexColour->b; else buffer[bufferIndex + 5] = 0.5;
         if (!textureCoordinates.empty()) buffer[bufferIndex + 6] = v.textureCoordinate->u;
-        if (!textureCoordinates.empty()) buffer[bufferIndex + 7] = v.textureCoordinate->v;
+        // Note for later: Temporary swap to fix texture coordinates, as apparently my currently
+        // loaded texture uses the directX convention (need to instead read in 1-v)
+        // Should probably handle this according to a parameter input for the function
+        if (!textureCoordinates.empty()) buffer[bufferIndex + 7] = 1 - v.textureCoordinate->v;
         if (!normalCoordinates.empty()) buffer[bufferIndex + 8] = v.normalCoordinate->x;
         if (!normalCoordinates.empty()) buffer[bufferIndex + 9] = v.normalCoordinate->y;
         if (!normalCoordinates.empty()) buffer[bufferIndex + 10] = v.normalCoordinate->z;
     }
 
+    glBindVertexArray(getVAO_ID());
+    glGenBuffers(1, &VBO_ID);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO_ID);
+    glBufferData(GL_ARRAY_BUFFER, getBufferSize()*sizeof(float), buffer, GL_STATIC_DRAW);
+    
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 11*sizeof(float), (void*)0);
+    
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 11*sizeof(float), (void*)(3*sizeof(float)));
+    
+    glEnableVertexAttribArray(2);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 11*sizeof(float), (void*)(6*sizeof(float)));
+    
+    glEnableVertexAttribArray(3);
+    glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 11*sizeof(float), (void*)(8*sizeof(float)));
+
+    glBindVertexArray(0);
+
     cout << "Build process done!" << endl;
 }
+
+void ObjMesh::bindMeshVAO() { glBindVertexArray(getVAO_ID()); }
+
+unsigned int ObjMesh::getVBO_ID() { return VBO_ID; }

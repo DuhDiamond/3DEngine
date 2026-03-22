@@ -1,61 +1,121 @@
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 #include "Object/Object.hpp"
 #include "Object/ObjMesh.hpp"
+#include "Scene/Clock.hpp"
+
+void Object::recomputeModelMatrix()
+{
+    model = position * scale * rotation;
+    
+    useShader();
+
+    unsigned int modelMatrixLocation = glGetUniformLocation(objectMaterial->getShader_ID(), "model");
+    glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, glm::value_ptr(model));
+}
 
 void Object::Instantiate() {
-
-    unsigned int instanceVBO_ID;
     float *buffer = objectMesh->getBuffer();
 
-    glBindVertexArray(objectMesh->getVAO_ID());
-    glGenBuffers(1, &instanceVBO_ID);
-    glBindBuffer(GL_ARRAY_BUFFER, instanceVBO_ID);
-    glBufferData(GL_ARRAY_BUFFER, objectMesh->getBufferSize()*sizeof(float), buffer, GL_STATIC_DRAW);
-    
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 11*sizeof(float), (void*)0);
-    
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 11*sizeof(float), (void*)(3*sizeof(float)));
-    
-    glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 11*sizeof(float), (void*)(7*sizeof(float)));
-    
-    glEnableVertexAttribArray(3);
-    glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 11*sizeof(float), (void*)(10*sizeof(float)));
-
-    glBindVertexArray(0);
-
-    VBO_ID = instanceVBO_ID;
+    recomputeModelMatrix();
 }
 
 void Object::Attach(ObjMesh *mesh) {
     objectMesh = mesh;
 }
 
-void Object::Attach(IMaterial *material) {
+void Object::Attach(PBRMaterial *material) {
     objectMaterial = material;
 }
 
-void Object::Attach(shader *shader) {
-    materialShader = shader;
-}
-
 void Object::useShader() {
-    materialShader->use();
+    objectMaterial->useShader();
 }
 
 unsigned int Object::getVAO_ID() {
     return objectMesh->getVAO_ID();
 }
 
-unsigned int Object::getShaderID() {
-    return materialShader->getShaderID();
+unsigned int Object::getShader_ID() {
+    return objectMaterial->getShader_ID();
 }
 
 unsigned int Object::getVBO_ID() {
-    return VBO_ID;
+    return objectMesh->getVBO_ID();
 }
 
-Object::~Object() {
+void Object::Draw() {
+    // Note for later: Look into using bindMeshVAO() only when drawing
+    // a different set of instances for a given ObjMesh, otherwise binding VBO is the way to go
+    objectMesh->bindMeshVAO();
+    objectMaterial->useShader();
+    objectMaterial->bindAllMaps();
+
+    glDrawElements(GL_TRIANGLES, objectMesh->getEBOSize(), GL_UNSIGNED_INT, 0);
+}
+
+
+
+void Object::SetSize(float xSize, float ySize, float zSize)
+{
+    scale = glm::scale(glm::mat4(1.0), glm::vec3(xSize, ySize, zSize));
+    
+    recomputeModelMatrix();
+}
+void Object::SetPosition(float x, float y, float z)
+{
+    position = glm::translate(glm::mat4(1.0), glm::vec3(x, y, z));
+    
+    recomputeModelMatrix();
+}
+void Object::SetRotation(float xAngle, float yAngle, float zAngle)
+{
+    rotation = glm::mat4(1.0f);
+    // For now i'm rotating by x, then y, and then z
+    // Eventually this will be replaced with a better system entirely
+    rotation = glm::rotate(rotation, glm::radians(xAngle), glm::vec3(1, 0, 0));
+    rotation = glm::rotate(rotation, glm::radians(yAngle), glm::vec3(0, 1, 0));
+    rotation = glm::rotate(rotation, glm::radians(zAngle), glm::vec3(0, 0, 1));
+
+    recomputeModelMatrix();
+}
+
+void Object::Scale(float xScale, float yScale, float zScale)
+{
+    scale = glm::scale(scale, glm::vec3(xScale, yScale, zScale));
+
+    recomputeModelMatrix();
+}
+void Object::Translate(float xTranslate, float yTranslate, float zTranslate)
+{
+    position = glm::translate(position, glm::vec3(xTranslate, yTranslate, zTranslate));
+
+    recomputeModelMatrix();
+}
+void Object::Rotate(float xAngle, float yAngle, float zAngle)
+{
+    rotation = glm::rotate(rotation, glm::radians(xAngle), glm::vec3(1, 0, 0));
+    rotation = glm::rotate(rotation, glm::radians(yAngle), glm::vec3(0, 1, 0));
+    rotation = glm::rotate(rotation, glm::radians(zAngle), glm::vec3(0, 0, 1));
+
+    recomputeModelMatrix();
+}
+
+/*
+glm::vec3 GetScale()
+{
+    return glm::vec3();
+}
+glm::vec3 GetPosition()
+{
 
 }
+glm::vec3 GetRotation()
+{
+
+}
+*/

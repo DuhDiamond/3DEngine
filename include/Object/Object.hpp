@@ -7,6 +7,7 @@
 #include "IMesh.hpp"
 #include "ObjMesh.hpp"
 #include "IMaterial.hpp"
+#include "PBRMaterial.hpp"
 
 using namespace std;
 
@@ -15,71 +16,57 @@ class Object
 {
 private:
     ObjMesh *objectMesh = nullptr;
-    IMaterial *objectMaterial = nullptr;
-    shader *materialShader = nullptr;
-
-    // Pointer which holds the associated ID for the instance's buffered data
-    unsigned int VBO_ID;
+    PBRMaterial *objectMaterial = nullptr;
 
     // Scale defaults to (1, 1, 1)
-    struct scale {
-        float x = 0;
-        float y = 0;
-        float z = 0;
-    };
+    glm::mat4 scale = glm::mat4(1.0f);
+
+    // Note for future: Works for now, but this method may suffer from gimbal lock
+    // Look into alternatives (e.g., quaternions)
+    glm::mat4 rotation = glm::mat4(1.0f);
 
     // Position defaults to (0, 0, 0)
-    struct position {
-        float x = 0;
-        float y = 0;
-        float z = 0;
-    };
+    glm::mat4 position = glm::mat4(1.0f);
 
-    // Note for future: Works for now, but this method suffers from gimbal lock
-    // Look into alternatives (e.g., quaternions)
-    struct rotation {
-        float x = 0;
-        float y = 0;
-        float z = 0;
-    };
+    // Note: this is matrix multiplication (right-to-left)
+    glm::mat4 model = position * scale * rotation;
+    void recomputeModelMatrix();
+
+    unsigned int getVAO_ID();
+    unsigned int getVBO_ID();
 
 public:
-    // These methods are held seperately from the actual values,
-    // as each time one of these methods are called, the corresponding attribute in the OpenGL
-    // buffer will also need to be changed
-    struct SetScale {
-        void x(float x);
-        void y(float y);
-        void z(float z);
-    };
-
-    struct SetPosition {
-        void x(float x);
-        void y(float y);
-        void z(float z);
-    };
-
-    struct SetRotation {
-        void x(float x);
-        void y(float y);
-        void z(float z);
-    };
     // Methods to attach things through openGL, and if relevant, register it through OpenGL
     void Attach(ObjMesh *mesh);
-    void Attach(IMaterial *material);
-    void Attach(shader *shader);
+    void Attach(PBRMaterial *material);
 
     void useShader();
-    
-    unsigned int getVAO_ID();
-    unsigned int getShaderID();
-    unsigned int getVBO_ID();
 
     // Builds the buffer for this object and displays it
     void Instantiate();
+    
+    unsigned int getShader_ID();
 
-    // Once object is deleted, destructor should handle the rest
-    ~Object();
+    void Draw();
+
+    // These methods are held seperately from the actual values,
+    // as each time one of these methods are called, the corresponding attribute in the OpenGL
+    // buffer will also need to be changed
+    void SetSize(float xSize, float ySize, float zSize);
+    void SetPosition(float x, float y, float z);
+    // Still need to figure out a better solution for this i.e. gimbal lock
+    void SetRotation(float xAngle, float yAngle, float zAngle);
+
+    void Scale(float xScale, float yScale, float zScale);
+    void Translate(float xTranslate, float yTranslate, float zTranslate);
+    // Still need to figure out a better solution for this i.e. gimbal lock
+    void Rotate(float xAngle, float yAngle, float zAngle);
+
+    /*
+    glm::vec3 GetScale();
+    glm::vec3 GetPosition();
+    glm::vec3 GetRotation();
+    */
 };
 
 #endif

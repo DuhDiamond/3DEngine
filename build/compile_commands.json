@@ -13,9 +13,21 @@
 },
 {
   "directory": "/mnt/c/Users/duhdi/Documents/3DEngine/build",
-  "command": "/usr/bin/g++  -I/mnt/c/Users/duhdi/Documents/3DEngine/include -I/mnt/c/Users/duhdi/Documents/3DEngine/external/glad/include -g -o CMakeFiles/3DEngine.dir/src/shader.cpp.o -c /mnt/c/Users/duhdi/Documents/3DEngine/src/shader.cpp",
-  "file": "/mnt/c/Users/duhdi/Documents/3DEngine/src/shader.cpp",
-  "output": "CMakeFiles/3DEngine.dir/src/shader.cpp.o"
+  "command": "/usr/bin/g++  -I/mnt/c/Users/duhdi/Documents/3DEngine/include -I/mnt/c/Users/duhdi/Documents/3DEngine/external/glad/include -g -o CMakeFiles/3DEngine.dir/src/Clock.cpp.o -c /mnt/c/Users/duhdi/Documents/3DEngine/src/Clock.cpp",
+  "file": "/mnt/c/Users/duhdi/Documents/3DEngine/src/Clock.cpp",
+  "output": "CMakeFiles/3DEngine.dir/src/Clock.cpp.o"
+},
+{
+  "directory": "/mnt/c/Users/duhdi/Documents/3DEngine/build",
+  "command": "/usr/bin/g++  -I/mnt/c/Users/duhdi/Documents/3DEngine/include -I/mnt/c/Users/duhdi/Documents/3DEngine/external/glad/include -g -o CMakeFiles/3DEngine.dir/src/textureData.cpp.o -c /mnt/c/Users/duhdi/Documents/3DEngine/src/textureData.cpp",
+  "file": "/mnt/c/Users/duhdi/Documents/3DEngine/src/textureData.cpp",
+  "output": "CMakeFiles/3DEngine.dir/src/textureData.cpp.o"
+},
+{
+  "directory": "/mnt/c/Users/duhdi/Documents/3DEngine/build",
+  "command": "/usr/bin/g++  -I/mnt/c/Users/duhdi/Documents/3DEngine/include -I/mnt/c/Users/duhdi/Documents/3DEngine/external/glad/include -g -o CMakeFiles/3DEngine.dir/src/materialShader.cpp.o -c /mnt/c/Users/duhdi/Documents/3DEngine/src/materialShader.cpp",
+  "file": "/mnt/c/Users/duhdi/Documents/3DEngine/src/materialShader.cpp",
+  "output": "CMakeFiles/3DEngine.dir/src/materialShader.cpp.o"
 },
 {
   "directory": "/mnt/c/Users/duhdi/Documents/3DEngine/build",
@@ -25,9 +37,9 @@
 },
 {
   "directory": "/mnt/c/Users/duhdi/Documents/3DEngine/build",
-  "command": "/usr/bin/g++  -I/mnt/c/Users/duhdi/Documents/3DEngine/include -I/mnt/c/Users/duhdi/Documents/3DEngine/external/glad/include -g -o CMakeFiles/3DEngine.dir/src/MeshLoader.cpp.o -c /mnt/c/Users/duhdi/Documents/3DEngine/src/MeshLoader.cpp",
-  "file": "/mnt/c/Users/duhdi/Documents/3DEngine/src/MeshLoader.cpp",
-  "output": "CMakeFiles/3DEngine.dir/src/MeshLoader.cpp.o"
+  "command": "/usr/bin/g++  -I/mnt/c/Users/duhdi/Documents/3DEngine/include -I/mnt/c/Users/duhdi/Documents/3DEngine/external/glad/include -g -o CMakeFiles/3DEngine.dir/src/PBRMaterial.cpp.o -c /mnt/c/Users/duhdi/Documents/3DEngine/src/PBRMaterial.cpp",
+  "file": "/mnt/c/Users/duhdi/Documents/3DEngine/src/PBRMaterial.cpp",
+  "output": "CMakeFiles/3DEngine.dir/src/PBRMaterial.cpp.o"
 },
 {
   "directory": "/mnt/c/Users/duhdi/Documents/3DEngine/build",

@@ -9,9 +9,11 @@
 
 #include <stb/stb_image.h>
 
-#include "Object/shader.hpp"
+#include "Object/materialShader.hpp"
 #include "Object/ObjMesh.hpp"
 #include "Object/Object.hpp"
+#include "Object/PBRMaterial.hpp"
+#include "Scene/Clock.hpp"
 #include "triangle.cpp"
 
 using namespace std;
@@ -59,72 +61,124 @@ int main() {
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
 
-    // Will need to abstract away this logic later; currently set up for testing
-    // Currently, to call "Instantiate", you will need at minimum a ObjMesh attached,
+    // Will need to abstract away and clean up this logic later; currently set up for testing
+    // To call "Instantiate", you will need at minimum a ObjMesh attached,
     // but a shader is also necessary for it to render
-    // Texture is not currently used in this setup (texture loads, but does not align to
-    // texture coordinates as expected)
-
-    ObjMesh mesh;
-    mesh.loadMesh("Meshes/suzanneTriangulated.obj");
-    mesh.buildBuffer();
-
-    Object Object1;
-    Object1.Attach(&mesh);
-
-    const char* vertexShader1 = "../shaders/vertex1.glsl";
-    const char* fragShader1 =   "../shaders/fragment1.glsl";
-    shader Object1Shader;
-    Object1Shader.loadShader(vertexShader1, fragShader1);
-    Object1.Attach(&Object1Shader);
-
-    Object1.Instantiate();
-
-    unsigned int Texture_ID;
     
-    glGenTextures(1, &Texture_ID);
-    glBindTexture(GL_TEXTURE_2D, Texture_ID);
+    // Loading the mesh for both Monkey objects ("Suzanne" is the name of the Blender monkey face)
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    ObjMesh SuzanneMonkeyMesh;
+    SuzanneMonkeyMesh.loadMesh("suzanneTriangulated2.obj");
 
-    int width, height, nrChannels;
-    unsigned char *data = stbi_load("../textures/suzanneTexture.png", &width, &height, &nrChannels, 0);
-    if (data)
-    {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
-    }
-    else
-    {
-        cout << "Failed to load texture" << endl;
-    }
-    stbi_image_free(data);
+    // Textured Monkey model setup
 
+    const char* PhongVertexShader = "../shaders/PhongVertexShader.glsl";
+    const char* DiffuseTexturePhongFragmentShader =   "../shaders/DiffuseTexturePhongFragmentShader.glsl";
+    materialShader TexturedMonkeyShader;
+    TexturedMonkeyShader.loadShader(PhongVertexShader, DiffuseTexturePhongFragmentShader);
+
+
+    textureData TexturedMonkeyDiffuse;
+    TexturedMonkeyDiffuse.loadTexture("suzanneTexture.png");
+
+    PBRMaterial TexturedMonkeyMaterial;
+    TexturedMonkeyMaterial.setDiffuse(&TexturedMonkeyDiffuse);
+    TexturedMonkeyMaterial.setShader(&TexturedMonkeyShader);
+
+    Object TexturedMonkey;
+    TexturedMonkey.Attach(&SuzanneMonkeyMesh);
+    TexturedMonkey.Attach(&TexturedMonkeyMaterial);
+
+    // Instantiate at the moment just sets the internal buffer pointer and runs recomputeModelMatrix()
+    TexturedMonkey.Instantiate();
+    TexturedMonkey.SetSize(1, 1, 1);
+
+
+    // Vertex Colours Monkey model setup (the one with the painted-on colours)
+
+    const char* VertexColoursPhongFragmentShader =   "../shaders/vertexColoursPhongFragmentShader.glsl";
+    materialShader VertexColoursMonkeyShader;
+
+    // For future: Set up seperate fragment and vertex shader classes that the materialShader class
+    // has pointers to, like the Object class in relation to ObjMesh and PBRMaterial (minimizes repetitive loading)
+    
+    VertexColoursMonkeyShader.loadShader(PhongVertexShader, VertexColoursPhongFragmentShader);
+
+    PBRMaterial VertexColoursMonkeyMaterial;
+    VertexColoursMonkeyMaterial.setShader(&VertexColoursMonkeyShader);
+
+    Object VertexColoursMonkey;
+    // Example of why i'm using pointers; can reuse already loaded meshes with their VBOs,
+    // just change the uniforms for the model matrix data
+    // Note for future: look into how to utilize glMultiDrawElements() or the newer methods for instanced
+    // meshes, may be more efficient
+    VertexColoursMonkey.Attach(&SuzanneMonkeyMesh);
+    VertexColoursMonkey.Attach(&VertexColoursMonkeyMaterial);
+
+    VertexColoursMonkey.Instantiate();
+    VertexColoursMonkey.SetSize(2.5, 2.5, 2.5);
+
+    // The Teapot Object
+
+    // Note: I don't actually use the UV map on this object at the moment
+    ObjMesh TeapotMesh;
+    TeapotMesh.loadMesh("../Meshes/teapotTriangulatedUVMapped.obj");
+
+    materialShader TeapotShader;
+    TeapotShader.loadShader(PhongVertexShader, VertexColoursPhongFragmentShader);
+    
+    Object Teapot;
+    Teapot.Attach(&TeapotMesh);
+    // Showing how Materials can also be reused;
+    // this will just draw the Teapot's vertex colours instead, however, since the Teapot .obj has no colours,
+    // the buffer loads to the fallback (0.5, 0.5, 0.5) grey colour for every corresponding vertex
+    // Thus, the object will render a default grey colour
+    Teapot.Attach(&VertexColoursMonkeyMaterial);
+
+    Teapot.Instantiate();
+    Teapot.SetSize(0.5, 1, 0.5);
+    Teapot.Translate(-5, -3, -3);
+
+
+
+    // To implement in a "Camera" class
     glm::mat4 view = glm::lookAt
     (
         glm::vec3(0.0f, 2.0f, 10.0f),
-        glm::vec3(0.0f, 1.5f, 0.0f),
+        glm::vec3(0.0f, 0.0f, 0.0f),
         glm::vec3(0.0f, 1.0f, 0.0f)
     );
 
     glm::mat4 projection = glm::perspective
     (
         glm::radians(45.0f),  // field of view
-        800.0f / 600.0f,      // aspect ratio
+        1920.0f / 1080.0f,      // aspect ratio
         0.1f,                 // near plane
         100.0f                // far plane
     );
 
 
-    // Manually testing the model/view/projection matrices here (will be implemented in Object class)
-    unsigned int Shader_ID = Object1.getShaderID();
-    Object1.useShader();
+    // Manually testing the view/projection matrices here (will be implemented in Camera class)
+    unsigned int TexturedMonkey_Shader_ID = TexturedMonkey.getShader_ID();
+    TexturedMonkey.useShader();
 
-    glUniformMatrix4fv(glGetUniformLocation(Shader_ID, "view"), 1, GL_FALSE, glm::value_ptr(view));
-    glUniformMatrix4fv(glGetUniformLocation(Shader_ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+    glUniformMatrix4fv(glGetUniformLocation(TexturedMonkey_Shader_ID, "view"), 1, GL_FALSE, glm::value_ptr(view));
+    glUniformMatrix4fv(glGetUniformLocation(TexturedMonkey_Shader_ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+
+
+    unsigned int VertexColoursMonkey_Shader_ID = VertexColoursMonkey.getShader_ID();
+    VertexColoursMonkey.useShader();
+
+    glUniformMatrix4fv(glGetUniformLocation(VertexColoursMonkey_Shader_ID, "view"), 1, GL_FALSE, glm::value_ptr(view));
+    glUniformMatrix4fv(glGetUniformLocation(VertexColoursMonkey_Shader_ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+
+
+    unsigned int Teapot_Shader_ID = Teapot.getShader_ID();
+    Teapot.useShader();
+
+    glUniformMatrix4fv(glGetUniformLocation(Teapot_Shader_ID, "view"), 1, GL_FALSE, glm::value_ptr(view));
+    glUniformMatrix4fv(glGetUniformLocation(Teapot_Shader_ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+
 
 
     // Main render loop
@@ -137,7 +191,9 @@ int main() {
     glEnable(GL_CULL_FACE);
 
     while (!glfwWindowShouldClose(window)) {
-        
+        // Scene setup
+        // timer.advanceTime();
+
         // input
         processInput(window);
 
@@ -145,18 +201,17 @@ int main() {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        glm::mat4 model = glm::mat4(1.0f);
-        model = glm::rotate(model, (float)glfwGetTime(), glm::vec3(1.0f, 1.0f, 1.0f));
-        
-        unsigned int modelLocation = glGetUniformLocation(Shader_ID, "model");
-        glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(model));
+        // Note for later: Standardize it with the timer class to properly make use of deltaTime
+        TexturedMonkey.Rotate(0, sin(1), 0);
+        TexturedMonkey.SetPosition(sin((float)glfwGetTime()), sin((float)glfwGetTime()), sin((float)glfwGetTime()));
+        TexturedMonkey.Draw();
 
-        Object1.useShader();
-        glBindVertexArray(Object1.getVAO_ID());
-        glBindTexture(GL_TEXTURE_2D, Texture_ID);
-        // glBindBuffer(GL_ARRAY_BUFFER, myObject.getVBO_ID());
-        glDrawElements(GL_TRIANGLES, mesh.getEBOSize(), GL_UNSIGNED_INT, 0);
-        // glDrawArrays(GL_TRIANGLES, 0, mesh.getBufferSize() / 11);
+        VertexColoursMonkey.SetPosition(0, cos((float)glfwGetTime()), -3);
+        VertexColoursMonkey.Rotate(0, sin(0.1), 0);
+        VertexColoursMonkey.Draw();
+
+        Teapot.Rotate(0, sin(0.2), 0);
+        Teapot.Draw();
 
         // events and buffer swap
         glfwSwapBuffers(window);

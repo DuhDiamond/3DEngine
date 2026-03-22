@@ -1,13 +1,13 @@
-#include "Object/shader.hpp"
+#include "Object/materialShader.hpp"
 
 using namespace std;
 
-unsigned int shader::getShaderID()
+unsigned int materialShader::getShader_ID()
 {
     return SHADER_ID;
 }
 
-void shader::loadShader(const char* vertexPath, const char* fragmentPath)
+void materialShader::loadShader(const char* vertexPath, const char* fragmentPath)
 {
     string vertexCode, fragmentCode;
     ifstream vShaderFile, fShaderFile;
@@ -95,27 +95,26 @@ void shader::loadShader(const char* vertexPath, const char* fragmentPath)
     glDeleteShader(fragmentShader);
 }
 
-void shader::use()
-{
+void materialShader::useShader() {
     glUseProgram(SHADER_ID);
 }
 
-void shader::setBool(const string &name, bool value) const
+void materialShader::setBool(const string &name, bool value) const
 {
     glUniform1i(glGetUniformLocation(SHADER_ID, name.c_str()), (int)value);
 }
 
-void shader::setInt(const string &name, int value) const
+void materialShader::setInt(const string &name, int value) const
 {
     glUniform1i(glGetUniformLocation(SHADER_ID, name.c_str()), value);
 }
 
-void shader::setFloat(const string &name, float value) const
+void materialShader::setFloat(const string &name, float value) const
 {
     glUniform1f(glGetUniformLocation(SHADER_ID, name.c_str()), value);
 }
 
-shader::~shader()
+materialShader::~materialShader()
 {
     glDeleteProgram(SHADER_ID);
 }
