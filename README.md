@@ -4,7 +4,7 @@ A work-in-progress 3D rendering engine built as a learning project to explore gr
 
 Progress logs are in the [CommitLogs](https://github.com/DuhDiamond/3DEngine/tree/main/CommitLogs) folder. Additionally, since Commit 5, I have started adding videos to the CommitLogs folder as well, to show visual changes over time.
 
-## Goals
+### Goals
 An attempt to build a basic 3D engine from scratch, drawing from:
 - [*learnopengl.com*](https://learnopengl.com/)
 - University computer graphics coursework
@@ -14,7 +14,7 @@ An attempt to build a basic 3D engine from scratch, drawing from:
 
 Aiming to spend a few hours per week on this at minimum, to build a solid foundation in OpenGL and graphics fundamentals. Physically-based rendering is a longer-term stretch goal.
 
-# How to run:
+### How to run:
 
 Here are some steps if you'd like to run it yourself. I use Windows + WSL (Windows Subsystem for Linux, based on Debian Linux) in a Visual Studio Code environment, alongside with the Remote WSL extension to locally connect to my WSL instance for faster development.
 
@@ -38,4 +38,4 @@ cd 3DEngine
 8. Afterwards, a window should appear on your screen.
 You can check out what should be visible according to the most recent .mp4 video file in the CommitLogs folder.
 
-If you're having issues running the project, message me directly and i'll try to help you as best as I can!
+If you're having issues running the project, message me directly and I'll help you as best as I can!
