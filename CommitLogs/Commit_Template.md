@@ -1,20 +1,11 @@
-## [Commit 1] – YYYY-MM-DD
-
-**Time Spent:**
-[x hours] (across [day range])
-
-### 🎯 Goals
--
-
-### 🛠 Accomplished
--
-
-### ⚠ Challenges
--
-
-### 🧠 Reflections
--
-
-### 🚀 Next Steps
--
----
+## Commit X – Day_Month_Year
+Time Spent:  
+day - number of hours  
+### Goals
+-goals here
+### Accomplished
+-accomplished here
+### Reflections
+-reflections here
+### Next Steps
+-next steps here
