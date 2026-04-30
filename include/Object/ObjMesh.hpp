@@ -16,7 +16,6 @@ private:
         float x;
         float y;
         float z;
-
     };
     vector<position> positionCoordinates;
 

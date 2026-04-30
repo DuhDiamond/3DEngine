@@ -7,25 +7,18 @@ layout (location = 3) in vec3 normal;
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
+mat3 normalMatrix = mat3(transpose(inverse(model)));
 
-uniform vec3 lightPosition;
-
-out vec3 vertexPos;
+out vec3 fragPos;
 out vec3 vertexCol;
-out vec3 vertexNormal;
-out vec2 vertexTexCoord;
-
-out vec3 lightPos;
-
-mat4 normalMatrix = transpose(inverse(model));
+out vec3 fragNormal;
+out vec2 fragTexCoord;
 
 void main() {
-    vertexPos = vec3(model * vec4(position, 1.0));
+    fragPos = (model * vec4(position, 1.0)).xyz;
     vertexCol = vertexColour;
-    vertexTexCoord = textureCoordinate;
-    vertexNormal = normalize(vec3(normalMatrix * vec4(normal, 1.0)));
-
-    lightPos = vec3(25, 15, -15);
+    fragNormal = (normalMatrix * normal).xyz;
+    fragTexCoord = textureCoordinate;
 
     gl_Position = projection * view * model * vec4(position, 1.0);
 }

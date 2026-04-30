@@ -10,16 +10,17 @@
 
 void Object::recomputeModelMatrix()
 {
-    model = position * scale * rotation;
+    glm::mat4 modelMatrix = position * rotation * scale;
     
-    useShader();
-
-    unsigned int modelMatrixLocation = glGetUniformLocation(objectMaterial->getShader_ID(), "model");
-    glUniformMatrix4fv(modelMatrixLocation, 1, GL_FALSE, glm::value_ptr(model));
+    objectMaterial->updateModelMatrix(modelMatrix);
 }
 
 void Object::Instantiate() {
     float *buffer = objectMesh->getBuffer();
+
+    SetSize(1.0, 1.0, 1.0);
+    SetPosition(0.0, 0.0, 0.0);
+    SetRotation(0.0, 0.0, 0.0);
 
     recomputeModelMatrix();
 }
@@ -54,6 +55,7 @@ void Object::Draw() {
     objectMesh->bindMeshVAO();
     objectMaterial->useShader();
     objectMaterial->bindAllMaps();
+    recomputeModelMatrix();
 
     glDrawElements(GL_TRIANGLES, objectMesh->getEBOSize(), GL_UNSIGNED_INT, 0);
 }

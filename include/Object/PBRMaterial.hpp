@@ -6,7 +6,7 @@
 #include "IMaterial.hpp"
 #include "materialShader.hpp"
 
-class PBRMaterial : IMaterial
+class PBRMaterial : public IMaterial
 {
 private:
     // Note for later: Might make sense to replace this with a generalized
@@ -28,7 +28,7 @@ public:
     unsigned int getShader_ID();
     void useShader();
 
-
+    void updateModelMatrix(glm::mat4 storedModelMatrix);
     void bindTextureMap(textureData *textureMap);
     void bindAllMaps();
 };

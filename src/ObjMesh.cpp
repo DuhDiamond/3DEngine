@@ -47,6 +47,7 @@ void ObjMesh::readVertexTextureCoordinateData(stringstream &linestream)
     uv texCoord;
     linestream >> texCoord.u;
     linestream >> texCoord.v;
+    // cout << "texCoord: " << endl;
     // cout << texCoord.u << " " << texCoord.v << endl;
     textureCoordinates.push_back(texCoord);
 }
@@ -213,9 +214,9 @@ void ObjMesh::buildBuffer() {
 
 
     // Note for later: reorganize this into a seperate function
-    for (int j = 0; j < EBOIndices.size(); j++) {
-        unsigned int bufferIndex = EBOIndices[j] * 11;
-        vertex &v = unorderedVertices[j];
+    for (int i = 0; i < EBOIndices.size(); i++) {
+        unsigned int bufferIndex = EBOIndices[i] * 11;
+        vertex &v = unorderedVertices[i];
         buffer[bufferIndex] = v.positionCoordinate->x;
         buffer[bufferIndex + 1] = v.positionCoordinate->y;
         buffer[bufferIndex + 2] = v.positionCoordinate->z;
@@ -232,6 +233,54 @@ void ObjMesh::buildBuffer() {
         if (!normalCoordinates.empty()) buffer[bufferIndex + 9] = v.normalCoordinate->y;
         if (!normalCoordinates.empty()) buffer[bufferIndex + 10] = v.normalCoordinate->z;
     }
+
+    // cout << "EBOIndices size:" << endl;
+    // cout << EBOIndices.size() << endl;
+    // int bufferIndex = 0;
+    // // Note for later: reorganize this into a seperate function
+    // for (polygon &face : polygonList) {
+    //     for (vertex &v : face.polygonVertices) {
+    //         buffer[bufferIndex] = v.positionCoordinate->x;
+    //         buffer[bufferIndex + 1] = v.positionCoordinate->y;
+    //         buffer[bufferIndex + 2] = v.positionCoordinate->z;
+    //         // If the file does not have vertex colours, should default to (0.5, 0.5, 0.5) (grey)
+    //         if (!vertexColours.empty()) buffer[bufferIndex + 3] = v.vertexColour->r; else buffer[bufferIndex + 3] = 0.5;
+    //         if (!vertexColours.empty()) buffer[bufferIndex + 4] = v.vertexColour->g; else buffer[bufferIndex + 4] = 0.5;
+    //         if (!vertexColours.empty()) buffer[bufferIndex + 5] = v.vertexColour->b; else buffer[bufferIndex + 5] = 0.5;
+    //         if (!textureCoordinates.empty()) buffer[bufferIndex + 6] = v.textureCoordinate->u;
+    //         // Note for later: Temporary swap to fix texture coordinates, as apparently my currently
+    //         // loaded texture uses the directX convention (need to instead read in 1-v)
+    //         // Should probably handle this according to a parameter input for the function
+    //         if (!textureCoordinates.empty()) buffer[bufferIndex + 7] = 1 - v.textureCoordinate->v;
+    //         if (!normalCoordinates.empty()) buffer[bufferIndex + 8] = v.normalCoordinate->x;
+    //         if (!normalCoordinates.empty()) buffer[bufferIndex + 9] = v.normalCoordinate->y;
+    //         if (!normalCoordinates.empty()) buffer[bufferIndex + 10] = v.normalCoordinate->z;
+    //         bufferIndex += 11;
+    //     }
+    // }
+
+    // int bufferIndex = 0;
+    // // cout << "bufferIndex size: " << EBOIndices.size() << endl;
+    // for (polygon &face : polygonList) {
+    //     for (vertex &v : face.polygonVertices) {
+    //         buffer[bufferIndex] = v.positionCoordinate->x;
+    //         buffer[bufferIndex + 1] = v.positionCoordinate->y;
+    //         buffer[bufferIndex + 2] = v.positionCoordinate->z;
+    //         // If the file does not have vertex colours, should default to (0.5, 0.5, 0.5) (grey)
+    //         if (!vertexColours.empty()) buffer[bufferIndex + 3] = v.vertexColour->r; else buffer[bufferIndex + 3] = 0.5;
+    //         if (!vertexColours.empty()) buffer[bufferIndex + 4] = v.vertexColour->g; else buffer[bufferIndex + 4] = 0.5;
+    //         if (!vertexColours.empty()) buffer[bufferIndex + 5] = v.vertexColour->b; else buffer[bufferIndex + 5] = 0.5;
+    //         if (!textureCoordinates.empty()) buffer[bufferIndex + 6] = v.textureCoordinate->u;
+    //         // Note for later: Temporary swap to fix texture coordinates, as apparently my currently
+    //         // loaded texture uses the directX convention (need to instead read in 1-v)
+    //         // Should probably handle this according to a parameter input for the function
+    //         if (!textureCoordinates.empty()) buffer[bufferIndex + 7] = 1 - v.textureCoordinate->v;
+    //         if (!normalCoordinates.empty()) buffer[bufferIndex + 8] = v.normalCoordinate->x;
+    //         if (!normalCoordinates.empty()) buffer[bufferIndex + 9] = v.normalCoordinate->y;
+    //         if (!normalCoordinates.empty()) buffer[bufferIndex + 10] = v.normalCoordinate->z;
+    //         bufferIndex += 11;
+    //     }
+    // }
 
     glBindVertexArray(getVAO_ID());
     glGenBuffers(1, &VBO_ID);

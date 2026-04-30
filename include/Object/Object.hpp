@@ -29,7 +29,6 @@ private:
     glm::mat4 position = glm::mat4(1.0f);
 
     // Note: this is matrix multiplication (right-to-left)
-    glm::mat4 model = position * scale * rotation;
     void recomputeModelMatrix();
 
     unsigned int getVAO_ID();

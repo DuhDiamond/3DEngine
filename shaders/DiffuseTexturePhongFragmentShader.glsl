@@ -1,43 +1,39 @@
 #version 450 core
 out vec4 FragColour;
 
-in vec3 vertexPos;
-in vec3 vertexCol;
-in vec3 vertexNormal;
-in vec2 vertexTexCoord;
+in vec3 fragPos;
+// in vec3 vertexCol;
+in vec3 fragNormal;
+in vec2 fragTexCoord;
 
-in vec3 lightPos;
-
-uniform vec3 ambient = vec3(0.25, 0.25, 0.25);
-uniform vec3 colour = vec3(1.0, 1.0, 1.0);
-// To be changed later as passed in via position of camera class
-// Currently I just assume camera is at (0, 0, 0)
-// Also, for the specular calculation, perhaps camera angle also
-// needs to be taken into account?
-uniform vec3 viewPos = vec3(0, 0, 0);
+uniform vec3 lightPos;
+uniform vec3 cameraViewPos;
+uniform vec3 ambientLight = vec3(0.1, 0.1, 0.1);
+uniform vec3 specularColour = vec3(0.5, 0.5, 0.5);
 float specularStrength = 1.0;
 
 uniform vec3 lightColour = vec3(0.95, 0.95, 0.95);
 
-uniform sampler2D objTexture;
+uniform sampler2D diffuseTexture;
+uniform sampler2D metallicTexture;
+uniform sampler2D normalTexture;
+uniform sampler2D roughnessTexture;
 
 void main() {
-    vec3 lightDir = normalize(vertexPos - lightPos);
-    
-    float diff = max(dot(vertexNormal, lightDir), 0.0);
-    vec3 diffuse = diff * lightColour;
-    vec3 viewDir = normalize(viewPos - vertexPos);
-    vec3 reflectDir = reflect(-lightDir, vertexNormal);
+    vec3 normal = normalize(fragNormal);
+    vec3 lightDir = normalize(lightPos - fragPos);
+    vec3 viewDir = normalize(cameraViewPos - fragPos);
+    vec3 reflectDir = reflect(-lightDir, normal);
+    float dist = distance(lightPos, fragPos);
 
-    vec4 diffuseTexture = texture(objTexture, vertexTexCoord);
+    vec3 diffuseColour = texture(diffuseTexture, fragTexCoord).xyz;
+    float diffuseStrength = max(dot(normal, lightDir), 0.0);
+    vec3 diffuseLight = diffuseColour * diffuseStrength * lightColour;
 
+    float specularStrength = pow(max(dot(viewDir, reflectDir), 0.0), 16.0);
+    vec3 specularLight = specularColour * specularStrength * lightColour;
 
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
-    vec3 specular = specularStrength * spec * lightColour;
-
-    vec3 result = (diffuse + ambient + specular) * vec3(diffuseTexture);
-
+    vec3 result = diffuseLight + ambientLight + specularLight;
 
     FragColour = vec4(result, 1.0);
-    // FragColour = texture(objTexture, vertexTexCoord);
 }

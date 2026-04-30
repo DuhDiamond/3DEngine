@@ -24,3 +24,4 @@ void PBRMaterial::bindAllMaps()
 void PBRMaterial::setShader(materialShader *shader) { matShader = shader; }
 unsigned int PBRMaterial::getShader_ID() { return matShader->getShader_ID(); }
 void PBRMaterial::useShader() { matShader->useShader(); }
+void PBRMaterial::updateModelMatrix(glm::mat4 storedModelMatrix) { matShader->setMat4("model", storedModelMatrix); }

@@ -30,6 +30,8 @@ public:
     void setBuffer(float *buffer) { objBuffer = buffer; }
     unsigned int getBufferSize() { return bufferSize; }
     void setBufferSize(unsigned int size) { bufferSize = size; }
+
+    ~IMesh() { delete[] objBuffer; }
 };
 
 #endif
