@@ -8,10 +8,10 @@ A work-in-progress 3D rendering engine built as a learning project to explore gr
 - ... and looking to see how I can expand upon these sources with my own ideas and experimentation.
 
 Camera controls:
-<video src="https://github.com/user-attachments/assets/57283446-5a6b-43bb-b602-14efaf5493b3"></video>
+<video src="https://github.com/user-attachments/assets/ab59d34b-f680-414c-83fc-a8ff904fec48"></video>
 
-Specular highlights reacting to camera position:
-<video src="https://github.com/user-attachments/assets/57283446-5a6b-43bb-b602-14efaf5493b3"></video>
+Specular highlights reacting to the camera's position:
+<video src="https://github.com/user-attachments/assets/db230237-cedd-4dd4-b5b7-6b0829206981"></video>
 
 Progress logs are in the [CommitLogs](https://github.com/DuhDiamond/3DEngine/tree/main/CommitLogs) folder. Additionally, since Commit 5, I have started adding videos to the CommitLogs folder as well, to show visual changes over time.
 
