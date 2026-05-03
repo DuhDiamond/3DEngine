@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cmath>
+#include <bits/stdc++.h>
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -14,104 +15,14 @@
 #include "Object/Object.hpp"
 #include "Object/PBRMaterial.hpp"
 #include "Scene/Clock.hpp"
+#include "Scene/Camera.hpp"
 #include "triangle.cpp"
 
 using namespace std;
 
-const unsigned int SCREEN_WIDTH = 1920;
-const unsigned int SCREEN_HEIGHT = 1080;
-
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
     glViewport(0, 0, width, height);
-}
-
-float deltaTime = 0.0;
-float previousTime = 0.0;
-
-glm::vec3 cameraPos = glm::vec3(0.0, 0.0, 3.0);
-glm::vec3 cameraFront = glm::vec3(0.0, 0.0, -1.0);
-glm::vec3 cameraUp = glm::vec3(0.0, 1.0, 0.0);
-
-float yaw = -90.0;
-float pitch = 0.0;
-
-const float cameraSpeed = 2.0;
-void processInput(GLFWwindow* window)
-{
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
-        glfwSetWindowShouldClose(window, true);
-    }
-    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-        cameraPos += cameraFront * cameraSpeed * deltaTime;
-    }
-    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-        cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed * deltaTime;
-    }
-    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-        cameraPos -= cameraFront * cameraSpeed * deltaTime;
-    }
-    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-        cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed * deltaTime;
-    }
-    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
-        cameraPos += cameraUp * cameraSpeed * deltaTime;
-    }
-    if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
-        cameraPos -= cameraUp * cameraSpeed * deltaTime;
-    }
-    if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) {
-        yaw -= 0.1;
-        glm::vec3 cameraDirection = glm::vec3(
-            cos(glm::radians(yaw)) * cos(glm::radians(pitch)),
-            sin(glm::radians(pitch)),
-            sin(glm::radians(yaw)) * cos(glm::radians(pitch))
-        );
-        cameraFront = glm::normalize(cameraDirection);
-    }
-    if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) {
-        yaw += 0.1;
-        glm::vec3 cameraDirection = glm::vec3(
-            cos(glm::radians(yaw)) * cos(glm::radians(pitch)),
-            sin(glm::radians(pitch)),
-            sin(glm::radians(yaw)) * cos(glm::radians(pitch))
-        );
-        cameraFront = glm::normalize(cameraDirection);
-    }
-}
-
-// Program starts at center of the screen
-float previous_xPos = (float)SCREEN_WIDTH/2.0, previous_yPos = (float)SCREEN_HEIGHT/2.0;
-const float sensitivity = 0.001;
-
-bool firstMouse = false;
-
-void mouse_callback(GLFWwindow* window, double xPos, double yPos) {
-    if (firstMouse) {
-        previous_xPos = xPos;
-        previous_yPos = yPos;
-        firstMouse = true;
-    }
-
-    float deltaX = xPos - previous_xPos;
-    float deltaY = yPos - previous_yPos;
-    previous_xPos = xPos;
-    previous_yPos = yPos;
-
-    deltaX *= sensitivity;
-    deltaY *= sensitivity;
-
-    yaw += deltaX;
-    pitch -= deltaY;
-    if (pitch > 89.0) pitch = 89.0;
-    if (pitch < -89.0) pitch = -89.0;
-
-    glm::vec3 cameraDirection = glm::vec3(
-        cos(glm::radians(yaw)) * cos(glm::radians(pitch)),
-        sin(glm::radians(pitch)),
-        sin(glm::radians(yaw)) * cos(glm::radians(pitch))
-    );
-    cameraFront = glm::normalize(cameraDirection);
 }
 
 int main() {
@@ -122,15 +33,32 @@ int main() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    GLFWwindow* window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "3DEngine", nullptr, nullptr);
+    Camera::initializeViewport();
+
+    GLFWwindow* window = glfwCreateWindow(Camera::getWidth(), Camera::getHeight(), "3DEngine", nullptr, nullptr);
     if (window == nullptr) {
         cout << "Failed to create GLFW window" << endl;
         glfwTerminate();
         return -1;
     }
+
+    static Camera* active_camera = nullptr;
+
+    Camera Scene1Camera;
+    Scene1Camera.initializeCamera();
+    active_camera = &Scene1Camera;
+
+    // std::function<void(GLFWwindow*, double, double)> activeCamera = [&](GLFWwindow* window, double xpos, double ypos){ return Scene1Camera.mouse_callback(window, xpos, ypos); };
+    // auto activeCamera = [&](function<void(GLFWwindow*, double, double)>) { Camera::*Scene1Camera.mouse_callback; }
+    // void (Camera::*activeCamera)(GLFWwindow*, double, double) = Camera::mouse_callback_camerawrapper(Scene1Camera);
+
+    auto active_camera_wrapper = [](GLFWwindow *window, double xPos, double yPos) {
+        active_camera->mouse_callback(window, xPos, yPos);
+    };
+
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-    glfwSetCursorPosCallback(window, mouse_callback);
+    glfwSetCursorPosCallback(window, active_camera_wrapper);
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
@@ -139,7 +67,11 @@ int main() {
     }
 
     // GLFW's OpenGL viewport configuration
-    glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    glViewport(0, 0, Camera::getWidth(), Camera::getHeight());
+
+    cout << "Initialized viewport" << endl;
+
+    Camera sceneCamera;
 
     // Will need to abstract away and clean up this logic later; currently set up for testing
     // To call "Instantiate", you will need at minimum a ObjMesh attached,
@@ -217,28 +149,18 @@ int main() {
     Teapot.SetPosition(0.0, 1.0, 0.5);
     // Teapot.Instantiate();
 
-    // To implement in a "Camera" class
-
-    glm::mat4 projection = glm::perspective
-    (
-        glm::radians(45.0f),  // field of view
-        (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT,    // aspect ratio
-        0.1f,                 // near plane
-        100.0f                // far plane
-    );
-
     TexturedMonkey.useShader();
     unsigned int TexturedMonkey_Shader_ID = TexturedMonkey.getShader_ID();
-    glUniformMatrix4fv(glGetUniformLocation(TexturedMonkey_Shader_ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+    glUniformMatrix4fv(glGetUniformLocation(TexturedMonkey_Shader_ID, "projection"), 1, GL_FALSE, glm::value_ptr(active_camera->projection));
     
     VertexColoursMonkey.useShader();
     unsigned int VertexColoursMonkey_Shader_ID = VertexColoursMonkey.getShader_ID();    
-    glUniformMatrix4fv(glGetUniformLocation(VertexColoursMonkey_Shader_ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+    glUniformMatrix4fv(glGetUniformLocation(VertexColoursMonkey_Shader_ID, "projection"), 1, GL_FALSE, glm::value_ptr(active_camera->projection));
 
 
     unsigned int Teapot_Shader_ID = Teapot.getShader_ID();
     Teapot.useShader();
-    glUniformMatrix4fv(glGetUniformLocation(Teapot_Shader_ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+    glUniformMatrix4fv(glGetUniformLocation(Teapot_Shader_ID, "projection"), 1, GL_FALSE, glm::value_ptr(active_camera->projection));
 
     // Main render loop
     glEnable(GL_DEPTH_TEST);
@@ -249,54 +171,60 @@ int main() {
 
     glEnable(GL_CULL_FACE);
 
-    glm::vec3 lightPos = glm::vec3(-1.5, 0.0, 0.5);
+    glm::vec3 light1Pos = glm::vec3(-1.5, 0.0, 0.5);
+    glm::vec3 light1Colour = glm::vec3(5.0, 5.0, 5.0);
+    glm::vec3 light2Pos = glm::vec3(1.5, 0.0, 0.5);
+    glm::vec3 light2Colour = glm::vec3(0.0, 5.0, 5.0);
 
     while (!glfwWindowShouldClose(window)) {
         // Scene setup
         // timer.advanceTime();
         float currentTime = glfwGetTime();
-        deltaTime = currentTime - previousTime;
-        previousTime = currentTime;
+        Camera::deltaTime = currentTime - Camera::previousTime;
+        Camera::previousTime = currentTime;
 
         // input
-        processInput(window);
+        active_camera->processInput(window);
+        active_camera->updateViewMatrix();
 
         // rendering
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        glm::mat4 view = glm::lookAt
-        (
-            cameraPos,
-            cameraPos + cameraFront,
-            cameraUp
-        );
-
         // Manually testing the view matrices here (will be implemented in Camera class)
         TexturedMonkey.useShader();
-        TexturedMonkeyShader.setMat4("view", view);
-        TexturedMonkeyShader.setVec3("cameraViewPos", cameraPos);
-        TexturedMonkeyShader.setVec3("lightPos", lightPos);
+        TexturedMonkeyShader.setMat4("view", active_camera->view);
+        TexturedMonkeyShader.setVec3("cameraViewPos", active_camera->cameraPos);
+        TexturedMonkeyShader.setVec3("pointlights[0].pos", light1Pos);
+        TexturedMonkeyShader.setVec3("pointlights[0].colour", light1Colour);
+        TexturedMonkeyShader.setVec3("pointlights[1].pos", light2Pos);
+        TexturedMonkeyShader.setVec3("pointlights[1].colour", light2Colour);
         
         VertexColoursMonkey.useShader();
-        VertexColoursMonkeyShader.setMat4("view", view);
-        VertexColoursMonkeyShader.setVec3("cameraViewPos", cameraPos);
-        VertexColoursMonkeyShader.setVec3("lightPos", lightPos);
+        VertexColoursMonkeyShader.setMat4("view", active_camera->view);
+        VertexColoursMonkeyShader.setVec3("cameraViewPos", active_camera->cameraPos);
+        VertexColoursMonkeyShader.setVec3("pointlights[0].pos", light1Pos);
+        VertexColoursMonkeyShader.setVec3("pointlights[0].colour", light1Colour);
+        VertexColoursMonkeyShader.setVec3("pointlights[1].pos", light2Pos);
+        VertexColoursMonkeyShader.setVec3("pointlights[1].colour", light2Colour);
 
         Teapot.useShader();
-        TeapotShader.setMat4("view", view);
-        TeapotShader.setVec3("cameraViewPos", cameraPos);
-        TeapotShader.setVec3("lightPos", lightPos);
+        TeapotShader.setMat4("view", active_camera->view);
+        TeapotShader.setVec3("cameraViewPos", active_camera->cameraPos);
+        TeapotShader.setVec3("pointlights[0].pos", light1Pos);
+        TeapotShader.setVec3("pointlights[0].colour", light1Colour);
+        TeapotShader.setVec3("pointlights[1].pos", light2Pos);
+        TeapotShader.setVec3("pointlights[1].colour", light2Colour);
 
         // Note for later: Standardize it with the timer class to properly make use of deltaTime
         // TexturedMonkey.Rotate(0.0, 0.0, 0.0);
         TexturedMonkey.Draw();
 
         // VertexColoursMonkey.SetPosition(0, cos((float)glfwGetTime()), -3);
-        VertexColoursMonkey.Rotate(0.0, 0.5, 0.2*sin(glfwGetTime()));
+        VertexColoursMonkey.Rotate(0.0, 0.5, 0.2*sin(currentTime));
         VertexColoursMonkey.Draw();
 
-        Teapot.Translate(0.0, 0.0, 0.01*sin(glfwGetTime()));
+        Teapot.Translate(0.0, 0.0, 0.01*sin(currentTime));
         Teapot.Draw();
 
         // events and buffer swap

@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "3DEngine"
   "3DEngine.pdb"
+  "CMakeFiles/3DEngine.dir/src/Camera.cpp.o"
+  "CMakeFiles/3DEngine.dir/src/Camera.cpp.o.d"
   "CMakeFiles/3DEngine.dir/src/Clock.cpp.o"
   "CMakeFiles/3DEngine.dir/src/Clock.cpp.o.d"
   "CMakeFiles/3DEngine.dir/src/ObjMesh.cpp.o"

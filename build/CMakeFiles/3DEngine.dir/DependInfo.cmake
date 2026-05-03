@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/mnt/c/Users/duhdi/Documents/3DEngine/src/Camera.cpp" "CMakeFiles/3DEngine.dir/src/Camera.cpp.o" "gcc" "CMakeFiles/3DEngine.dir/src/Camera.cpp.o.d"
   "/mnt/c/Users/duhdi/Documents/3DEngine/src/Clock.cpp" "CMakeFiles/3DEngine.dir/src/Clock.cpp.o" "gcc" "CMakeFiles/3DEngine.dir/src/Clock.cpp.o.d"
   "/mnt/c/Users/duhdi/Documents/3DEngine/src/ObjMesh.cpp" "CMakeFiles/3DEngine.dir/src/ObjMesh.cpp.o" "gcc" "CMakeFiles/3DEngine.dir/src/ObjMesh.cpp.o.d"
   "/mnt/c/Users/duhdi/Documents/3DEngine/src/Object.cpp" "CMakeFiles/3DEngine.dir/src/Object.cpp.o" "gcc" "CMakeFiles/3DEngine.dir/src/Object.cpp.o.d"

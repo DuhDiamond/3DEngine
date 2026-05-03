@@ -46,5 +46,11 @@
   "command": "/usr/bin/g++  -I/mnt/c/Users/duhdi/Documents/3DEngine/include -I/mnt/c/Users/duhdi/Documents/3DEngine/external/glad/include -g -o CMakeFiles/3DEngine.dir/src/Object.cpp.o -c /mnt/c/Users/duhdi/Documents/3DEngine/src/Object.cpp",
   "file": "/mnt/c/Users/duhdi/Documents/3DEngine/src/Object.cpp",
   "output": "CMakeFiles/3DEngine.dir/src/Object.cpp.o"
+},
+{
+  "directory": "/mnt/c/Users/duhdi/Documents/3DEngine/build",
+  "command": "/usr/bin/g++  -I/mnt/c/Users/duhdi/Documents/3DEngine/include -I/mnt/c/Users/duhdi/Documents/3DEngine/external/glad/include -g -o CMakeFiles/3DEngine.dir/src/Camera.cpp.o -c /mnt/c/Users/duhdi/Documents/3DEngine/src/Camera.cpp",
+  "file": "/mnt/c/Users/duhdi/Documents/3DEngine/src/Camera.cpp",
+  "output": "CMakeFiles/3DEngine.dir/src/Camera.cpp.o"
 }
 ]

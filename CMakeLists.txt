@@ -9,6 +9,15 @@ find_package(OpenGL REQUIRED)
 add_library(glad external/glad/src/glad.c)
 target_include_directories(glad PUBLIC external/glad/include)
 
-add_executable(3DEngine src/main.cpp src/Clock.cpp src/textureData.cpp src/materialShader.cpp src/ObjMesh.cpp src/PBRMaterial.cpp src/Object.cpp)
+add_executable(3DEngine
+    src/main.cpp
+    src/Clock.cpp
+    src/textureData.cpp
+    src/materialShader.cpp
+    src/ObjMesh.cpp
+    src/PBRMaterial.cpp
+    src/Object.cpp
+    src/Camera.cpp
+)
 target_include_directories(3DEngine PRIVATE include)
 target_link_libraries(3DEngine PRIVATE glad glfw stb OpenGL::GL)
