@@ -1,7 +1,11 @@
 #include <vector>
+#include <map>
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include "fileLoaders/MeshLoader.hpp"
 #include "Object/ObjMesh.hpp"
@@ -77,12 +81,11 @@ void ObjMesh::readPolygonFaceIndices(string &element, stringstream &linestream, 
         // cout << texCoordIndex << endl;
 
         // -1 since the obj format isn't 0-indexed like arrays/vectors
-        EBOIndices.push_back(stoi(positionCoordinateIndex) - 1);
         // Empty checks are to make sure that associated data was actually in the file (otherwise the vectors are empty)
-                                         v.positionCoordinate = &positionCoordinates[stoi(positionCoordinateIndex) - 1];
-        if (!vertexColours.empty())      v.vertexColour =       &vertexColours[stoi(positionCoordinateIndex) - 1];
-        if (!textureCoordinates.empty()) v.textureCoordinate =  &textureCoordinates[stoi(textureCoordinateIndex) - 1];
-        if (!normalCoordinates.empty())  v.normalCoordinate =   &normalCoordinates[stoi(normalCoordinateIndex) - 1];
+                                         v.positionCoordinateIndex = stoi(positionCoordinateIndex) - 1;
+        if (!vertexColours.empty())      v.vertexColourIndex =       stoi(positionCoordinateIndex) - 1;
+        if (!textureCoordinates.empty()) v.textureCoordinateIndex =  stoi(textureCoordinateIndex) - 1;
+        if (!normalCoordinates.empty())  v.normalCoordinateIndex =   stoi(normalCoordinateIndex) - 1;
 
         // cout << "Vertex for polygon complete" << endl;
         face.polygonVertices.push_back(v);
@@ -165,127 +168,64 @@ void ObjMesh::loadMesh(string meshPath)
 }
 
 unsigned int ObjMesh::getEBOSize() {
-    return EBOIndices.size();
+    return EBOBuffer.size();
 }
 
 void ObjMesh::buildBuffer() {
-
     cout << "Starting build process: " << endl;
+
+
+    // Deduplication of duplicate vertices while building the EBO indirectly
+    for (polygon &face : polygonList) {
+        for (vertex &v : face.polygonVertices) {
+            vector<unsigned int> key;
+            key.push_back(v.positionCoordinateIndex);
+            key.push_back(v.vertexColourIndex);
+            key.push_back(v.textureCoordinateIndex);
+            key.push_back(v.normalCoordinateIndex);
+
+            if (deduplicatedVertexMap.find(key) == deduplicatedVertexMap.end()) {
+                deduplicatedVertexMap[key] = deduplicatedVertices.size();
+                deduplicatedVertices.push_back(v);
+            }
+            EBOBuffer.push_back(deduplicatedVertexMap[key]);
+        }
+    }
+
+    VBOBuffer.resize(deduplicatedVertices.size() * 11);
+    // Note for later: reorganize this into a seperate function
+    for (int i = 0; i < deduplicatedVertices.size(); i++) {
+        vertex &v = deduplicatedVertices[i];
+        int j = i * 11;
+                                         VBOBuffer[j]     = positionCoordinates[v.positionCoordinateIndex].x;
+                                         VBOBuffer[j + 1] = positionCoordinates[v.positionCoordinateIndex].y;
+                                         VBOBuffer[j + 2] = positionCoordinates[v.positionCoordinateIndex].z;
+        // If the file does not have vertex colours, should default to (0.5, 0.5, 0.5) (grey)
+        if (!vertexColours.empty())      VBOBuffer[j + 3] = vertexColours[v.vertexColourIndex].r; else VBOBuffer[j + 3] = 0.5;
+        if (!vertexColours.empty())      VBOBuffer[j + 4] = vertexColours[v.vertexColourIndex].g; else VBOBuffer[j + 4] = 0.5;
+        if (!vertexColours.empty())      VBOBuffer[j + 5] = vertexColours[v.vertexColourIndex].b; else VBOBuffer[j + 5] = 0.5;
+        if (!textureCoordinates.empty()) VBOBuffer[j + 6] = textureCoordinates[v.textureCoordinateIndex].u;
+        // Note for later: Temporary swap to fix texture coordinates, as apparently my currently
+        // loaded texture uses the directX convention (need to instead read in 1-v)
+        // Should probably handle this according to a parameter input for the function
+        if (!textureCoordinates.empty()) VBOBuffer[j + 7] = 1.0 - textureCoordinates[v.textureCoordinateIndex].v;
+        if (!normalCoordinates.empty())  VBOBuffer[j + 8] = normalCoordinates[v.normalCoordinateIndex].x;
+        if (!normalCoordinates.empty())  VBOBuffer[j + 9] = normalCoordinates[v.normalCoordinateIndex].y;
+        if (!normalCoordinates.empty())  VBOBuffer[j + 10]= normalCoordinates[v.normalCoordinateIndex].z;
+    }
 
     unsigned int VAO_ID;
     glGenVertexArrays(1, &VAO_ID);
     glBindVertexArray(VAO_ID);
-    setVAO_ID(VAO_ID);
-
-    unsigned int *EBOBuffer = new unsigned int[EBOIndices.size()];
-
-    for (int i = 0; i < EBOIndices.size(); i++) {
-        EBOBuffer[i] = EBOIndices[i];
-    }
 
     unsigned int EBO_ID;
-
     glGenBuffers(1, &EBO_ID);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO_ID);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, EBOIndices.size()*sizeof(unsigned int), EBOBuffer, GL_STATIC_DRAW);
-    glBindVertexArray(0);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, EBOBuffer.size()*sizeof(unsigned int), EBOBuffer.data(), GL_STATIC_DRAW);
 
-    delete[] EBOBuffer;
-    setEBO_ID(EBO_ID);
-
-    glBindVertexArray(getVAO_ID());
-
-    int bufferSize = 0;
-    for (polygon &face : polygonList) {
-        // 11 elements per vertex in the vector per face
-        bufferSize += face.polygonVertices.size() * 11;
-        for (vertex &v : face.polygonVertices) {
-            unorderedVertices.push_back(v);
-        }
-    }
-
-    // Note for later: organize logic around smart pointers
-    // (and make sure memory management gets handled properly)
-    float *buffer = getBuffer();
-    buffer = new float[bufferSize];
-
-    setBuffer(buffer);
-    setBufferSize(bufferSize);
-
-
-    // Note for later: reorganize this into a seperate function
-    for (int i = 0; i < EBOIndices.size(); i++) {
-        unsigned int bufferIndex = EBOIndices[i] * 11;
-        vertex &v = unorderedVertices[i];
-        buffer[bufferIndex] = v.positionCoordinate->x;
-        buffer[bufferIndex + 1] = v.positionCoordinate->y;
-        buffer[bufferIndex + 2] = v.positionCoordinate->z;
-        // If the file does not have vertex colours, should default to (0.5, 0.5, 0.5) (grey)
-        if (!vertexColours.empty()) buffer[bufferIndex + 3] = v.vertexColour->r; else buffer[bufferIndex + 3] = 0.5;
-        if (!vertexColours.empty()) buffer[bufferIndex + 4] = v.vertexColour->g; else buffer[bufferIndex + 4] = 0.5;
-        if (!vertexColours.empty()) buffer[bufferIndex + 5] = v.vertexColour->b; else buffer[bufferIndex + 5] = 0.5;
-        if (!textureCoordinates.empty()) buffer[bufferIndex + 6] = v.textureCoordinate->u;
-        // Note for later: Temporary swap to fix texture coordinates, as apparently my currently
-        // loaded texture uses the directX convention (need to instead read in 1-v)
-        // Should probably handle this according to a parameter input for the function
-        if (!textureCoordinates.empty()) buffer[bufferIndex + 7] = 1 - v.textureCoordinate->v;
-        if (!normalCoordinates.empty()) buffer[bufferIndex + 8] = v.normalCoordinate->x;
-        if (!normalCoordinates.empty()) buffer[bufferIndex + 9] = v.normalCoordinate->y;
-        if (!normalCoordinates.empty()) buffer[bufferIndex + 10] = v.normalCoordinate->z;
-    }
-
-    // cout << "EBOIndices size:" << endl;
-    // cout << EBOIndices.size() << endl;
-    // int bufferIndex = 0;
-    // // Note for later: reorganize this into a seperate function
-    // for (polygon &face : polygonList) {
-    //     for (vertex &v : face.polygonVertices) {
-    //         buffer[bufferIndex] = v.positionCoordinate->x;
-    //         buffer[bufferIndex + 1] = v.positionCoordinate->y;
-    //         buffer[bufferIndex + 2] = v.positionCoordinate->z;
-    //         // If the file does not have vertex colours, should default to (0.5, 0.5, 0.5) (grey)
-    //         if (!vertexColours.empty()) buffer[bufferIndex + 3] = v.vertexColour->r; else buffer[bufferIndex + 3] = 0.5;
-    //         if (!vertexColours.empty()) buffer[bufferIndex + 4] = v.vertexColour->g; else buffer[bufferIndex + 4] = 0.5;
-    //         if (!vertexColours.empty()) buffer[bufferIndex + 5] = v.vertexColour->b; else buffer[bufferIndex + 5] = 0.5;
-    //         if (!textureCoordinates.empty()) buffer[bufferIndex + 6] = v.textureCoordinate->u;
-    //         // Note for later: Temporary swap to fix texture coordinates, as apparently my currently
-    //         // loaded texture uses the directX convention (need to instead read in 1-v)
-    //         // Should probably handle this according to a parameter input for the function
-    //         if (!textureCoordinates.empty()) buffer[bufferIndex + 7] = 1 - v.textureCoordinate->v;
-    //         if (!normalCoordinates.empty()) buffer[bufferIndex + 8] = v.normalCoordinate->x;
-    //         if (!normalCoordinates.empty()) buffer[bufferIndex + 9] = v.normalCoordinate->y;
-    //         if (!normalCoordinates.empty()) buffer[bufferIndex + 10] = v.normalCoordinate->z;
-    //         bufferIndex += 11;
-    //     }
-    // }
-
-    // int bufferIndex = 0;
-    // // cout << "bufferIndex size: " << EBOIndices.size() << endl;
-    // for (polygon &face : polygonList) {
-    //     for (vertex &v : face.polygonVertices) {
-    //         buffer[bufferIndex] = v.positionCoordinate->x;
-    //         buffer[bufferIndex + 1] = v.positionCoordinate->y;
-    //         buffer[bufferIndex + 2] = v.positionCoordinate->z;
-    //         // If the file does not have vertex colours, should default to (0.5, 0.5, 0.5) (grey)
-    //         if (!vertexColours.empty()) buffer[bufferIndex + 3] = v.vertexColour->r; else buffer[bufferIndex + 3] = 0.5;
-    //         if (!vertexColours.empty()) buffer[bufferIndex + 4] = v.vertexColour->g; else buffer[bufferIndex + 4] = 0.5;
-    //         if (!vertexColours.empty()) buffer[bufferIndex + 5] = v.vertexColour->b; else buffer[bufferIndex + 5] = 0.5;
-    //         if (!textureCoordinates.empty()) buffer[bufferIndex + 6] = v.textureCoordinate->u;
-    //         // Note for later: Temporary swap to fix texture coordinates, as apparently my currently
-    //         // loaded texture uses the directX convention (need to instead read in 1-v)
-    //         // Should probably handle this according to a parameter input for the function
-    //         if (!textureCoordinates.empty()) buffer[bufferIndex + 7] = 1 - v.textureCoordinate->v;
-    //         if (!normalCoordinates.empty()) buffer[bufferIndex + 8] = v.normalCoordinate->x;
-    //         if (!normalCoordinates.empty()) buffer[bufferIndex + 9] = v.normalCoordinate->y;
-    //         if (!normalCoordinates.empty()) buffer[bufferIndex + 10] = v.normalCoordinate->z;
-    //         bufferIndex += 11;
-    //     }
-    // }
-
-    glBindVertexArray(getVAO_ID());
     glGenBuffers(1, &VBO_ID);
     glBindBuffer(GL_ARRAY_BUFFER, VBO_ID);
-    glBufferData(GL_ARRAY_BUFFER, getBufferSize()*sizeof(float), buffer, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, VBOBuffer.size()*sizeof(float), VBOBuffer.data(), GL_STATIC_DRAW);
     
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 11*sizeof(float), (void*)0);
@@ -300,6 +240,15 @@ void ObjMesh::buildBuffer() {
     glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 11*sizeof(float), (void*)(8*sizeof(float)));
 
     glBindVertexArray(0);
+
+    setVAO_ID(VAO_ID);
+    setEBO_ID(EBO_ID);
+    
+    cmd.count = EBOBuffer.size();
+    cmd.instanceCount = 0;
+    cmd.firstIndex = 0;
+    cmd.baseVertex = 0;
+    cmd.baseInstance = 0;
 
     cout << "Build process done!" << endl;
 }

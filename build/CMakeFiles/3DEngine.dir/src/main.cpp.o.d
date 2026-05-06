@@ -502,4 +502,4 @@ CMakeFiles/3DEngine.dir/src/main.cpp.o: \
  /mnt/c/Users/duhdi/Documents/3DEngine/include/Object/PBRMaterial.hpp \
  /mnt/c/Users/duhdi/Documents/3DEngine/include/Scene/Clock.hpp \
  /mnt/c/Users/duhdi/Documents/3DEngine/include/Scene/Camera.hpp \
- /mnt/c/Users/duhdi/Documents/3DEngine/src/triangle.cpp
+ /mnt/c/Users/duhdi/Documents/3DEngine/include/Scene/IndirectRender.hpp

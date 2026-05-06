@@ -18,6 +18,7 @@ add_executable(3DEngine
     src/PBRMaterial.cpp
     src/Object.cpp
     src/Camera.cpp
+    src/IndirectRender.cpp
 )
 target_include_directories(3DEngine PRIVATE include)
 target_link_libraries(3DEngine PRIVATE glad glfw stb OpenGL::GL)

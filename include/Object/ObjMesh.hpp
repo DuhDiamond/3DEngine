@@ -1,7 +1,17 @@
 #ifndef OBJMESH_HPP
 #define OBJMESH_HPP
 
+#include <map>
+
 #include "IMesh.hpp"
+
+struct DrawElementsIndirectCommand {
+    uint count;         // EBOBuffer.size()
+    uint instanceCount; // instance count (number of objects pointing to this mesh in the scene)
+    uint firstIndex;    // (void *)indices = firstIndex * size(GL_UNSIGNED_INT)
+    int baseVertex;     // constant offset (0)
+    uint baseInstance;  // using the first instance
+};
 
 // This will hold the raw object data after it's read in from an OBJ file, returned by ObjLoader
 class ObjMesh : public IMesh
@@ -9,6 +19,8 @@ class ObjMesh : public IMesh
 private:
     // Pointer which holds the associated ID for the loaded mesh's buffered data
     unsigned int VBO_ID;
+
+    DrawElementsIndirectCommand cmd;
 
     // List of geometric coordinates
     struct position
@@ -51,12 +63,11 @@ private:
 
     struct vertex
     {
-        position *positionCoordinate = nullptr;
-        colour *vertexColour = nullptr;
-        uv *textureCoordinate = nullptr;
-        normal *normalCoordinate = nullptr;
+        int positionCoordinateIndex = -1;
+        int vertexColourIndex = -1;
+        int textureCoordinateIndex = -1;
+        int normalCoordinateIndex = -1;
     };
-    vector<vertex> unorderedVertices;
     
     // Holds the face data from the OBJ file format (denoted by "f" on each line)
     struct polygon
@@ -65,8 +76,6 @@ private:
     };
     vector<polygon> polygonList;
 
-    vector<unsigned int> EBOIndices;
-
     // readVertexCoordinateData handles both vertex position and vertex colours
     void readVertexCoordinateData(stringstream &linestream);
     void readVertexNormalData(stringstream &linestream);
@@ -74,9 +83,19 @@ private:
     void readPolygonFaceIndices(string &element, stringstream &linestream, stringstream &vertexstream);
     
     void buildBuffer();
-
 public:
+    // Created in buildBuffer, non-duplicated vertices are edge cases for things like UV seams
+    map<vector<unsigned int>, unsigned int> deduplicatedVertexMap;
+    vector<vertex> deduplicatedVertices;
+    vector<unsigned int> EBOBuffer;
+
+    vector<float> VBOBuffer;
+    unsigned int IndirectBuffer;
+
     void loadMesh(string meshPath);
+
+    void incrementInstanceCount() { cmd.instanceCount++; }
+    DrawElementsIndirectCommand *getCmd() { return &cmd; }
 
     void bindMeshVAO();
     unsigned int getEBOSize();

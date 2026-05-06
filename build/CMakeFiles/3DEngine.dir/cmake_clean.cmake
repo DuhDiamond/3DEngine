@@ -5,6 +5,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/3DEngine.dir/src/Camera.cpp.o.d"
   "CMakeFiles/3DEngine.dir/src/Clock.cpp.o"
   "CMakeFiles/3DEngine.dir/src/Clock.cpp.o.d"
+  "CMakeFiles/3DEngine.dir/src/IndirectRender.cpp.o"
+  "CMakeFiles/3DEngine.dir/src/IndirectRender.cpp.o.d"
   "CMakeFiles/3DEngine.dir/src/ObjMesh.cpp.o"
   "CMakeFiles/3DEngine.dir/src/ObjMesh.cpp.o.d"
   "CMakeFiles/3DEngine.dir/src/Object.cpp.o"

@@ -16,8 +16,13 @@ void PBRMaterial::bindTextureMap(textureData *textureMap)
 
 void PBRMaterial::bindAllMaps()
 {
-    for (textureData *textureMap : textureMaps) {
-        if (textureMap != nullptr) textureMap->bindTexture();
+    for (int i = 0; i < textureMaps.size(); i++) {
+        if (textureMaps[i] != nullptr) {
+            textureMaps[i]->bindTexture();
+        } else {
+            // Clear from previous object
+            textureMaps[i]->clearTexture();
+        }
     }
 }
 

@@ -214,6 +214,30 @@ src/Clock.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/3DEngine.dir/build.make CMakeFiles/3DEngine.dir/src/Clock.cpp.s
 .PHONY : src/Clock.cpp.s
 
+src/IndirectRender.o: src/IndirectRender.cpp.o
+.PHONY : src/IndirectRender.o
+
+# target to build an object file
+src/IndirectRender.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/3DEngine.dir/build.make CMakeFiles/3DEngine.dir/src/IndirectRender.cpp.o
+.PHONY : src/IndirectRender.cpp.o
+
+src/IndirectRender.i: src/IndirectRender.cpp.i
+.PHONY : src/IndirectRender.i
+
+# target to preprocess a source file
+src/IndirectRender.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/3DEngine.dir/build.make CMakeFiles/3DEngine.dir/src/IndirectRender.cpp.i
+.PHONY : src/IndirectRender.cpp.i
+
+src/IndirectRender.s: src/IndirectRender.cpp.s
+.PHONY : src/IndirectRender.s
+
+# target to generate assembly for a file
+src/IndirectRender.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/3DEngine.dir/build.make CMakeFiles/3DEngine.dir/src/IndirectRender.cpp.s
+.PHONY : src/IndirectRender.cpp.s
+
 src/ObjMesh.o: src/ObjMesh.cpp.o
 .PHONY : src/ObjMesh.o
 
@@ -377,6 +401,9 @@ help:
 	@echo "... src/Clock.o"
 	@echo "... src/Clock.i"
 	@echo "... src/Clock.s"
+	@echo "... src/IndirectRender.o"
+	@echo "... src/IndirectRender.i"
+	@echo "... src/IndirectRender.s"
 	@echo "... src/ObjMesh.o"
 	@echo "... src/ObjMesh.i"
 	@echo "... src/ObjMesh.s"

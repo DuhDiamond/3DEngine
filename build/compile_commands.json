@@ -52,5 +52,11 @@
   "command": "/usr/bin/g++  -I/mnt/c/Users/duhdi/Documents/3DEngine/include -I/mnt/c/Users/duhdi/Documents/3DEngine/external/glad/include -g -o CMakeFiles/3DEngine.dir/src/Camera.cpp.o -c /mnt/c/Users/duhdi/Documents/3DEngine/src/Camera.cpp",
   "file": "/mnt/c/Users/duhdi/Documents/3DEngine/src/Camera.cpp",
   "output": "CMakeFiles/3DEngine.dir/src/Camera.cpp.o"
+},
+{
+  "directory": "/mnt/c/Users/duhdi/Documents/3DEngine/build",
+  "command": "/usr/bin/g++  -I/mnt/c/Users/duhdi/Documents/3DEngine/include -I/mnt/c/Users/duhdi/Documents/3DEngine/external/glad/include -g -o CMakeFiles/3DEngine.dir/src/IndirectRender.cpp.o -c /mnt/c/Users/duhdi/Documents/3DEngine/src/IndirectRender.cpp",
+  "file": "/mnt/c/Users/duhdi/Documents/3DEngine/src/IndirectRender.cpp",
+  "output": "CMakeFiles/3DEngine.dir/src/IndirectRender.cpp.o"
 }
 ]
